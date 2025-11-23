@@ -8,9 +8,7 @@ interface BaseProps<TYPE, ERROR> {
     errorData?: ERROR;
 }
 
-type BasePropertyProps<TYPE> = BaseProps<TYPE, string>;
-
-interface NumberPropertyProps extends BasePropertyProps<number> {
+interface NumberProps {
     disappear?: boolean;
     default?: number;
     min?: number;
@@ -18,14 +16,21 @@ interface NumberPropertyProps extends BasePropertyProps<number> {
     step?: number;
 }
 
+type BasePropertyProps<TYPE> = BaseProps<TYPE, string>;
+
+
+interface NumberPropertyProps extends BasePropertyProps<number>, NumberProps {}
 
 interface BaseObjectProps<TYPE extends object> extends BaseProps<TYPE, object> {
     name: keyof TYPE | string;
 }
+
+interface NumberObjectProps<TYPE extends object> extends BaseObjectProps<TYPE>, NumberProps {}
 
 
 export type {
     BasePropertyProps,
     NumberPropertyProps,
     BaseObjectProps,
+    NumberObjectProps
 }
