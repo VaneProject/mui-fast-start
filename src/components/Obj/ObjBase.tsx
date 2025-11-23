@@ -1,7 +1,7 @@
 import React from "react";
 import type {BaseObjectProps} from "../../types/types.ts";
 
-abstract class ObjBase<TYPE extends object, RETURN, PROPS = unknown, STATE = unknown>
+abstract class ObjBase<TYPE extends object, RETURN, PROPS, STATE = unknown>
     extends React.Component<BaseObjectProps<TYPE> & PROPS, STATE> {
 
     protected abstract getProps(): PROPS;
