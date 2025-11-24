@@ -8,9 +8,14 @@ interface BaseProps<TYPE, ERROR> {
     errorData?: ERROR;
 }
 
-interface NumberProps {
+interface BaseTextProps {
+    minLength?: number;
+    maxLength?: number;
+}
+
+interface BaseNumberProps extends BaseTextProps {
     disappear?: boolean;
-    default?: number;
+    def?: number;
     min?: number;
     max?: number;
     step?: number;
@@ -18,19 +23,14 @@ interface NumberProps {
 
 type BasePropertyProps<TYPE> = BaseProps<TYPE, string>;
 
-
-interface NumberPropertyProps extends BasePropertyProps<number>, NumberProps {}
-
 interface BaseObjectProps<TYPE extends object> extends BaseProps<TYPE, object> {
     name: keyof TYPE | string;
 }
 
-interface NumberObjectProps<TYPE extends object> extends BaseObjectProps<TYPE>, NumberProps {}
-
 
 export type {
     BasePropertyProps,
-    NumberPropertyProps,
     BaseObjectProps,
-    NumberObjectProps
+    BaseTextProps,
+    BaseNumberProps
 }
