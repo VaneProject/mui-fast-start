@@ -26,7 +26,11 @@ abstract class SingleBaseTextField<TYPE, PROPS = unknown, STATE = unknown>
 
         return (
             <TextField
-                error={!errorData}
+                error={!!errorData}
+                slotProps={{
+                    htmlInput: this.htmlInput,
+                    inputLabel: this.inputLabel
+                }}
                 {...this.getProps()}
             />
         );

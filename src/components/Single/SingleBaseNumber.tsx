@@ -2,13 +2,13 @@ import SingleBaseTextField from "./SingleBaseTextField.tsx";
 import React from "react";
 import type {InputBaseProps} from "@mui/material/InputBase";
 import type {InputLabelProps} from "@mui/material/InputLabel";
-import type {SlotProps, TextFieldOwnerState} from "@mui/material";
-import type {BaseNumberProps} from "../../types/types.ts";
+import type {SlotProps, TextFieldOwnerState, TextFieldProps} from "@mui/material";
+import type {BaseNumberProps, BasePropertyProps} from "../../types/types.ts";
 
 abstract class SingleBaseNumber extends SingleBaseTextField<number, BaseNumberProps, {
     isFocus: boolean
 }> {
-    protected constructor(props) {
+    constructor(props: BasePropertyProps<number> & BaseNumberProps & TextFieldProps) {
         super(props);
         this.onSelect = this.onSelect.bind(this);
         this.onChange = this.onChange.bind(this);
