@@ -1,7 +1,6 @@
 import './prototype.ts';
-import React from "react";
 
-const floatCalculate = (value: string | null, min: number, max: number, def: number) => {
+const floatCalculate = (value: string | null, min: number, max: number, def: number): number => {
     let calc: number = 0;
     if (value == null || value.isEmpty()) {
         calc = def;
@@ -24,9 +23,29 @@ const floatCalculate = (value: string | null, min: number, max: number, def: num
     return calc;
 }
 
-const numberFormat = (event: React.ChangeEvent<HTMLInputElement>): string => {
-    const target = event.currentTarget;
-    const value: string = target.value
+const integerCalculate = (value: string | null, min: number, max: number, def: number): number => {
+    let calc: number = 0;
+    if (value == null || value.isEmpty()) {
+        calc = def;
+    } else {
+        for (const token of value.split(/(?=[+-])/g)) {
+            if (/^[+-]?\d+$/.test(token)) {
+                calc += parseInt(token, 10);
+            }
+        }
+    }
+
+    if (max != null) {
+        calc = Math.min(max, calc);
+    }
+    if (min != null) {
+        calc = Math.max(min, calc);
+    }
+    return calc;
+}
+
+const processFloat = (text: string): string => {
+    const value: string = text
         .replace(/[^0-9+.-]/g, '')
         .replace(/([+-]){2,}/g, (match, op) => op);
 
@@ -56,17 +75,18 @@ const numberFormat = (event: React.ChangeEvent<HTMLInputElement>): string => {
             decimalUsed = false;
         }
     }
-
-    result += token;
-
-    if (result != target.value) {
-        target.value = result;
-    }
-
-    return result;
+    return result + token;
 }
+
+const processInteger = (text: string): string => text
+    .replace(/[^0-9+-]/g, '')
+    .replace(/\./g, '')
+    .replace(/([+-]){2,}/g, (match, op) => op.charAt(0))
+    .replace(/^([+-]{2,})/, match => match.charAt(0));
 
 export {
     floatCalculate,
-    numberFormat
+    integerCalculate,
+    processFloat,
+    processInteger
 }

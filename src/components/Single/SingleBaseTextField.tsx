@@ -1,11 +1,10 @@
 import SingleBase from "./SingleBase.tsx";
-import type {TextFieldProps} from "@mui/material";
+import type {SlotProps, TextFieldOwnerState, TextFieldProps} from "@mui/material";
 import {TextField} from "@mui/material";
 import React from "react";
-import {SlotProps} from "@mui/material/utils/types";
-import {InputBaseProps} from "@mui/material/InputBase";
-import type {TextFieldOwnerState} from "@mui/material/TextField/TextField";
-import {InputLabelProps} from "@mui/material/InputLabel";
+import type {InputBaseProps} from "@mui/material/InputBase";
+import type {InputLabelProps} from "@mui/material/InputLabel";
+
 
 abstract class SingleBaseTextField<TYPE, PROPS = unknown, STATE = unknown>
     extends SingleBase<TYPE, PROPS & TextFieldProps, STATE> {

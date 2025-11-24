@@ -1,28 +1,27 @@
+import SingleBaseNumber from "../SingleBaseNumber.tsx";
 import type {BaseNumberProps} from "../../../types/types.ts";
-import type {SlotProps, TextFieldOwnerState, TextFieldProps} from "@mui/material";
+import React from "react";
+import type {SlotProps, TextFieldProps, TextFieldOwnerState} from "@mui/material";
 import type {InputBaseProps} from "@mui/material/InputBase";
 import {TextField} from "@mui/material";
-import React from "react";
-import SingleBaseNumber from "../SingleBaseNumber.tsx";
-import {floatCalculate, processFloat} from "../../../utils/calculate.ts";
+import {integerCalculate, processInteger} from "../../../utils/calculate.ts";
 
-class SingleFloat extends SingleBaseNumber {
-    protected getProps(): BaseNumberProps & TextFieldProps {
+class SingleInteger extends SingleBaseNumber {
+    override getProps(): BaseNumberProps & TextFieldProps {
         return Object.assign({
-            inputMode: 'decimal',
+            inputMode: 'numeric',
             type: 'text',
-            step: 0.01,
+            step: 1,
             def: 0
         }, super.getProps());
     }
-
     override get htmlInput(): SlotProps<React.ElementType<InputBaseProps["inputProps"]>, {}, TextFieldOwnerState> {
         return Object.assign({
             onKeyDown: this.onKeyDown
         }, super.htmlInput);
     }
 
-    render() {
+    override render(): React.JSX.Element {
         const {
             error,
             ...props
@@ -49,23 +48,33 @@ class SingleFloat extends SingleBaseNumber {
 
     protected getCalculate(value: string | null): number {
         const {min, max, def} = this.getProps();
-        return floatCalculate(value, min, max, def);
+        return integerCalculate(value, min, max, def);
     }
 
     protected getKeyboardValue(event: React.KeyboardEvent<HTMLInputElement>): number {
         const {min, max, def} = this.getProps();
         const {value, valueAsNumber} = event.currentTarget;
-        return isNaN(valueAsNumber) ? floatCalculate(value, min, max, def) : valueAsNumber;
+        return isNaN(valueAsNumber) ? integerCalculate(value, min, max, def) : valueAsNumber;
     }
 
     protected getProcess(event: React.ChangeEvent<HTMLInputElement>): string {
         const target = event.currentTarget;
-        const result: string = processFloat(target.value);
-        if (result != target.value) {
-            target.value = result;
+        const value: string = processInteger(target.value);
+        if (value != target.value) {
+            target.value = value;
         }
-        return result;
+        return value;
+    }
+
+
+    override onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+        if ([".", "e", "E"].includes(event.key)) {
+            event.preventDefault();
+            return null;
+        }
+
+        super.onKeyDown(event);
     }
 }
 
-export default SingleFloat;
+export default SingleInteger;

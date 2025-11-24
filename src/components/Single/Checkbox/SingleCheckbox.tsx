@@ -15,7 +15,8 @@ class SingleCheckbox extends SingleBase<boolean, CheckboxProps> {
     }
 
     render() {
-        const {label} = this.props;
+        const {label,} = this.props;
+
         return label == null ? (
             <Checkbox
                 checked={this.value}
