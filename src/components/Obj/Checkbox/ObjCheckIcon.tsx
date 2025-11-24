@@ -2,18 +2,22 @@ import ObjBase from "../ObjBase.tsx";
 import {IconButton, type IconButtonProps} from "@mui/material";
 import React from "react";
 
-type Props = IconButtonProps & {
+type ObjCheckIconProps = IconButtonProps & {
     on: React.ReactNode,
     off: React.ReactNode
 }
 
-class ObjCheckIcon<TYPE extends object> extends ObjBase<TYPE, boolean, Props> {
-    override getProps(): Props {
-        return {
+class ObjCheckIcon<TYPE extends object> extends ObjBase<TYPE, boolean, ObjCheckIconProps> {
+    constructor(props) {
+        super(props);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    override getProps(): ObjCheckIconProps {
+        return Object.assign({
             size: 'small',
-            onClick: this.onClick,
-            ...this.props
-        };
+            onClick: this.onClick
+        }, this.props);
     }
 
     render() {
@@ -26,7 +30,7 @@ class ObjCheckIcon<TYPE extends object> extends ObjBase<TYPE, boolean, Props> {
         );
     }
 
-    private onClick = () => {
+    private readonly onClick = () => {
         this.value = !this.value;
     }
 }

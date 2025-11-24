@@ -1,8 +1,8 @@
-import ObjBase from "../ObjBase.tsx";
+import SingleBase from "../SingleBase.tsx";
 import {Checkbox, type CheckboxProps, FormControlLabel} from "@mui/material";
 import React from "react";
 
-class ObjCheckbox<TYPE extends object> extends ObjBase<TYPE, boolean, CheckboxProps> {
+class SingleCheckbox extends SingleBase<boolean, CheckboxProps> {
     constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
@@ -15,10 +15,7 @@ class ObjCheckbox<TYPE extends object> extends ObjBase<TYPE, boolean, CheckboxPr
     }
 
     render() {
-        const {
-            label
-        } = this.props;
-
+        const {label} = this.props;
         return label == null ? (
             <Checkbox
                 checked={this.value}
@@ -39,4 +36,4 @@ class ObjCheckbox<TYPE extends object> extends ObjBase<TYPE, boolean, CheckboxPr
     }
 }
 
-export default ObjCheckbox;
+export default SingleCheckbox;
