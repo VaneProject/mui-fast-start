@@ -1,4 +1,4 @@
-import type {SingleNumberProps} from "../../types";
+import type {InputLabelType, SingleNumberProps} from "../../types";
 import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
 import React, {FocusEvent, useCallback, useMemo, useState} from "react";
@@ -87,6 +87,10 @@ const useSplitSingleNumberProps = (
     }, [getKeyboardValue, max, min, step]);
 
     const value = useMemo(() => (draft == null ? get : draft), [get, draft]);
+    const inputLabel: InputLabelType = useMemo(() => (
+        (draft == null && (get == null || isNaN(get))) ? {} : { shrink: true }
+    ), [draft, get]);
+
     return fastDeepMerge<TextFieldProps>({
         value,
         onChange,
@@ -94,7 +98,7 @@ const useSplitSingleNumberProps = (
         onBlur,
         slotProps: {
             htmlInput: {step, min, max, minLength, maxLength, onKeyDown},
-            inputLabel: (draft == null || value == null || isNaN(value)) ? {} : { shrink: true }
+            inputLabel: inputLabel
         }
     }, (props as TextFieldProps));
 }
