@@ -1,71 +1,13 @@
-import type {BaseNumberProps} from "../../../types/types.ts";
-import type {SlotProps, TextFieldOwnerState, TextFieldProps} from "@mui/material";
-import type {InputBaseProps} from "@mui/material/InputBase";
+import {useContext} from "react";
+import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import type {SingleNumberProps} from "../../../types";
 import {TextField} from "@mui/material";
-import React from "react";
-import SingleBaseNumber from "../SingleBaseNumber.tsx";
-import {floatCalculate, processFloat} from "../../../utils/calculate.ts";
+import {useSplitSingleFloatProps} from "../../../hooks";
 
-class SingleFloat extends SingleBaseNumber {
-    protected getProps(): BaseNumberProps & TextFieldProps {
-        return Object.assign({
-            inputMode: 'decimal',
-            type: 'text',
-            step: 0.01,
-            def: 0
-        }, super.getProps());
-    }
-
-    override get htmlInput(): SlotProps<React.ElementType<InputBaseProps["inputProps"]>, {}, TextFieldOwnerState> {
-        return Object.assign({
-            onKeyDown: this.onKeyDown
-        }, super.htmlInput);
-    }
-
-    render() {
-        const {
-            error,
-            ...props
-        } = this.getProps();
-
-        const value = this.state.isFocus ? null : this.value;
-
-        return (
-            <TextField
-                error={!!error}
-                helperText={error}
-                value={value}
-                slotProps={{
-                    htmlInput: this.htmlInput,
-                    inputLabel: this.inputLabel
-                }}
-                onSelect={this.onSelect}
-                onChange={this.onChange}
-                onBlur={this.onBlur}
-                {...props}
-            />
-        );
-    }
-
-    protected getCalculate(value: string | null): number {
-        const {min, max, def} = this.getProps();
-        return floatCalculate(value, min, max, def);
-    }
-
-    protected getKeyboardValue(event: React.KeyboardEvent<HTMLInputElement>): number {
-        const {min, max, def} = this.getProps();
-        const {value, valueAsNumber} = event.currentTarget;
-        return isNaN(valueAsNumber) ? floatCalculate(value, min, max, def) : valueAsNumber;
-    }
-
-    protected getProcess(event: React.ChangeEvent<HTMLInputElement>): string {
-        const target = event.currentTarget;
-        const result: string = processFloat(target.value);
-        if (result != target.value) {
-            target.value = result;
-        }
-        return result;
-    }
+const SingleFloat = (customProps: SingleNumberProps) => {
+    const defaultProps = useContext(FastStartContext).Single.Float;
+    const props = useSplitSingleFloatProps(defaultProps, customProps);
+    return <TextField {...props}/>;
 }
 
 export default SingleFloat;

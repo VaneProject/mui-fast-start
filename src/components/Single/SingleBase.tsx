@@ -1,4 +1,4 @@
-import type {BasePropertyProps} from "../../types/types.ts";
+import type {BasePropertyProps} from "../../types";
 import React from "react";
 
 abstract class SingleBase<TYPE, PROPS, STATE = unknown>

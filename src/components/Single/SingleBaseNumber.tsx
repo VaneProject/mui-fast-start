@@ -3,7 +3,7 @@ import React from "react";
 import type {InputBaseProps} from "@mui/material/InputBase";
 import type {InputLabelProps} from "@mui/material/InputLabel";
 import type {SlotProps, TextFieldOwnerState, TextFieldProps} from "@mui/material";
-import type {BaseNumberProps, BasePropertyProps} from "../../types/types.ts";
+import type {BaseNumberProps, BasePropertyProps} from "../../types";
 
 abstract class SingleBaseNumber extends SingleBaseTextField<number, BaseNumberProps, {
     isFocus: boolean

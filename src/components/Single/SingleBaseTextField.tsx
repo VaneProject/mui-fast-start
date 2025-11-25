@@ -4,6 +4,7 @@ import {TextField} from "@mui/material";
 import React from "react";
 import type {InputBaseProps} from "@mui/material/InputBase";
 import type {InputLabelProps} from "@mui/material/InputLabel";
+import type {HtmlInputType} from "../../types";
 
 
 abstract class SingleBaseTextField<TYPE, PROPS = unknown, STATE = unknown>
@@ -18,7 +19,7 @@ abstract class SingleBaseTextField<TYPE, PROPS = unknown, STATE = unknown>
         }, this.props);
     }
 
-    protected abstract get htmlInput(): SlotProps<React.ElementType<InputBaseProps['inputProps']>, {}, TextFieldOwnerState>;
+    protected abstract get htmlInput(): HtmlInputType;
     protected abstract get inputLabel(): SlotProps<React.ElementType<InputLabelProps>, {}, TextFieldOwnerState>;
 
     override render() {

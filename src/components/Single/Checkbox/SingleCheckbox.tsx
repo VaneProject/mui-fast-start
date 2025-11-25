@@ -1,40 +1,32 @@
-import SingleBase from "../SingleBase.tsx";
-import {Checkbox, type CheckboxProps, FormControlLabel} from "@mui/material";
-import React from "react";
+import {Checkbox, FormControlLabel} from "@mui/material";
+import React, {useCallback, useContext} from "react";
+import type {SingleCheckboxProps} from "../../../types";
+import {fastDeepMerge} from "../../../utils";
+import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 
-class SingleCheckbox extends SingleBase<boolean, CheckboxProps> {
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
+const SingleCheckbox = (customProps: SingleCheckboxProps) => {
+    const defaultProps = useContext(FastStartContext).Single.Checkbox;
+    const {
+        get, set, label, errorData,
+        ...props
+    } = fastDeepMerge<SingleCheckboxProps>(defaultProps, customProps);
 
-    override getProps(): CheckboxProps {
-        return Object.assign({
-            size: 'small'
-        }, this.props);
-    }
+    const onChange = useCallback(() => set(!get), [set, get]);
 
-    render() {
-        const {label,} = this.props;
-
-        return label == null ? (
-            <Checkbox
-                checked={this.value}
-                onChange={this.onClick}
-                {...this.getProps()}
-            />
-        ) : (
-            <FormControlLabel
-                label={label}
-                onChange={this.onClick}
-                control={<Checkbox {...this.getProps()}/>}
-            />
-        );
-    }
-
-    private readonly onClick = () => {
-        this.value = !this.value;
-    }
-}
+    return label == null ? (
+        <Checkbox
+            checked={get}
+            onChange={onChange}
+            {...props}
+        />
+    ) : (
+        <FormControlLabel
+            checked={get}
+            label={label}
+            onChange={onChange}
+            control={<Checkbox {...props}/>}
+        />
+    );
+};
 
 export default SingleCheckbox;
