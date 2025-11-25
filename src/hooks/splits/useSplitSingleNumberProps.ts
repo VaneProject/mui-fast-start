@@ -1,27 +1,25 @@
 import type {SingleNumberProps} from "../../types";
 import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
-import React, {useCallback, useMemo, useState} from "react";
+import React, {FocusEvent, useCallback, useMemo, useState} from "react";
 
 const useSplitSingleNumberProps = (
     defaultProps: SingleNumberProps,
     customProps: SingleNumberProps,
     process: (value: string) => string,
     calculate: (value: string | null, min: number, max: number, def: number) => number,
-    lockKeys: readonly string[] = []
+    lockKeys: string[] = []
 ): TextFieldProps => {
-    const [isFocus, setIsFocus] = useState<boolean>(false);
+    const [draft, setDraft] = useState<string | null>(null);
     const {
         get, set, errorData,
         minLength, maxLength,
         disappear, def, min, max, step,
         ...props
-    } = useMemo(() => 
+    } = useMemo(() =>
         fastDeepMerge<SingleNumberProps>({...defaultProps}, customProps),
         [defaultProps, customProps]
     );
-
-    const onSelect = useCallback(() => setIsFocus(true), []);
 
     const getCalculate = useCallback((value: string | null) => (
         calculate(value, min, max, def)
@@ -42,17 +40,22 @@ const useSplitSingleNumberProps = (
     }, [process]);
 
 
+    const onSelect = useCallback(() => {
+        if (draft == null) setDraft(get.toString());
+    }, [draft, get]);
+
     const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const result: string = getProcess(event);
         const num: number = getCalculate(result);
-
         if (!isNaN(num) && get != num) set(num);
+
+        setDraft(event.currentTarget.value);
     }, [getProcess, getCalculate, set, get]);
 
     const onBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
         const {value} = event.currentTarget;
 
-        setIsFocus(false);
+        setDraft(null);
         const num: number = getCalculate(value);
         if (get != num) set(num);
     }, [getCalculate, get, set]);
@@ -83,7 +86,7 @@ const useSplitSingleNumberProps = (
         }
     }, [getKeyboardValue, max, min, step]);
 
-    const value: number | null = isFocus ? null : get;
+    const value = useMemo(() => (draft == null ? get : draft), [get, draft]);
     return fastDeepMerge<TextFieldProps>({
         value,
         onChange,
@@ -91,7 +94,7 @@ const useSplitSingleNumberProps = (
         onBlur,
         slotProps: {
             htmlInput: {step, min, max, minLength, maxLength, onKeyDown},
-            inputLabel: (value == null || isNaN(value)) ? {} : { shrink: true }
+            inputLabel: (draft == null || value == null || isNaN(value)) ? {} : { shrink: true }
         }
     }, (props as TextFieldProps));
 }
