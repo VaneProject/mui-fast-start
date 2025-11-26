@@ -7,11 +7,11 @@ import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 const SingleCheckbox = (customProps: SingleCheckboxProps) => {
     const defaultProps = useContext(FastStartContext).Single.Checkbox;
     const {
-        get, set, label, errorData: _,
+        get, set, label,
         ...props
     } = fastDeepMerge<SingleCheckboxProps>(defaultProps, customProps);
 
-    const onChange = useCallback(() => set(!get), [set, get]);
+    const onChange = useCallback(() => set((state) => !state), [set]);
 
     return label == null ? (
         <Checkbox

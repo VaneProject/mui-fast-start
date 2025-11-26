@@ -1,42 +1,23 @@
-import ObjBase from "../ObjBase.tsx";
-import {Checkbox, type CheckboxProps, FormControlLabel} from "@mui/material";
-import React from "react";
+import React, {useContext} from "react";
+import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import {createObjToSingle, fastDeepMerge} from "../../../utils";
+import type {ObjCheckboxProps} from "../../../types";
+import {SingleCheckbox} from "../../index.ts";
 
-class ObjCheckbox<TYPE extends object> extends ObjBase<TYPE, boolean, CheckboxProps> {
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
+const ObjCheckbox = <T extends object>(customProps: ObjCheckboxProps<T>) => {
+    const defaultProps = useContext(FastStartContext).Obj.Checkbox;
+    const {
+        get, set, label,
+        ...props
+    } = fastDeepMerge<ObjCheckboxProps<T>>(defaultProps, customProps);
+    const [value, setValue] = createObjToSingle<T, boolean>(props.name, get, set);
 
-    override getProps(): CheckboxProps {
-        return Object.assign({
-            size: 'small'
-        }, this.props);
-    }
-
-    render() {
-        const {
-            label
-        } = this.props;
-
-        return label == null ? (
-            <Checkbox
-                checked={this.value}
-                onChange={this.onClick}
-                {...this.getProps()}
-            />
-        ) : (
-            <FormControlLabel
-                label={label}
-                onChange={this.onClick}
-                control={<Checkbox {...this.getProps()}/>}
-            />
-        );
-    }
-
-    private readonly onClick = () => {
-        this.value = !this.value;
-    }
+    return (
+        <SingleCheckbox
+            label={label}
+            get={value} set={setValue}
+        />
+    )
 }
 
 export default ObjCheckbox;

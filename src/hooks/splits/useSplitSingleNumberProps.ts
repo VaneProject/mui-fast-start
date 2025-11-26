@@ -1,7 +1,7 @@
 import type {InputLabelType, SingleNumberProps} from "../../types";
 import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
-import React, {FocusEvent, useCallback, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 
 const useSplitSingleNumberProps = (
     defaultProps: SingleNumberProps,
@@ -69,7 +69,7 @@ const useSplitSingleNumberProps = (
         const input = event.currentTarget;
         if (event.key === "ArrowUp") {
             event.preventDefault();
-            let num: number = getKeyboardValue(event) + step;
+            const num: number = getKeyboardValue(event) + step;
             if (max != null && num > max) {
                 input.value = max.toString();
             } else {
@@ -77,7 +77,7 @@ const useSplitSingleNumberProps = (
             }
         } else if (event.key === "ArrowDown") {
             event.preventDefault();
-            let num: number = getKeyboardValue(event) - step;
+            const num: number = getKeyboardValue(event) - step;
             if (min != null && num < min) {
                 input.value = min.toString();
             } else {

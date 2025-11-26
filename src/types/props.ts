@@ -4,25 +4,35 @@ import type {InputBaseProps} from "@mui/material/InputBase";
 import type {InputLabelProps} from "@mui/material/InputLabel";
 import type {Dispatch, SetStateAction} from "react";
 
-type AutocompleteProps = React.ComponentProps<typeof Autocomplete>;
 type OutlinedInputProps = React.ComponentProps<typeof OutlinedInput>;
 type HtmlInputType = SlotProps<React.ElementType<InputBaseProps['inputProps']>, {}, TextFieldOwnerState>;
 type InputLabelType = SlotProps<React.ElementType<InputLabelProps>, {}, TextFieldOwnerState>;
+type KeysWithValue<Type extends object, Target> = {
+    [K in keyof Type]: Type[K] extends Target ? K : never
+}[keyof Type];
 
-interface BaseProps<TYPE, ERROR> {
-    get: TYPE;
-    set: Dispatch<SetStateAction<TYPE>>;
+interface BaseProps<Type, Error> {
+    get: Type;
+    set: Dispatch<SetStateAction<Type>>;
     label?: React.ReactNode;
-    errorData?: ERROR;
+    errorData?: Error;
 }
 
-interface BaseObjectProps<TYPE extends object> extends BaseProps<TYPE, object> {
-    name: keyof TYPE | string;
+type BasePropertyProps<TYPE> = BaseProps<TYPE, string>;
+
+interface BaseObjectProps<Type extends object, Target>
+    extends BaseProps<Type, Partial<Type> | object> {
+    name: KeysWithValue<Type, Target> | string;
 }
 
 interface BaseTextProps {
     minLength?: number;
     maxLength?: number;
+}
+
+interface BaseCheckIconProps {
+    on: React.ReactNode;
+    off: React.ReactNode;
 }
 
 interface BaseNumberProps extends BaseTextProps {
@@ -33,15 +43,21 @@ interface BaseNumberProps extends BaseTextProps {
     step?: number;
 }
 
-type BasePropertyProps<TYPE> = BaseProps<TYPE, string>;
+interface BaseAutocompleteProps<Value, Input> {
+    isLoading?: boolean;
+    items: Value[];
+    converter?: (value: Value) => Input;
+}
 
 export type {
-    AutocompleteProps,
+    KeysWithValue,
     OutlinedInputProps,
     HtmlInputType,
     InputLabelType,
     BasePropertyProps,
     BaseObjectProps,
     BaseTextProps,
-    BaseNumberProps
+    BaseCheckIconProps,
+    BaseNumberProps,
+    BaseAutocompleteProps
 }

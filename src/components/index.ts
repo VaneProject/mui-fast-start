@@ -4,10 +4,8 @@ export { default as ObjCheckIcon } from './Obj/Checkbox/ObjCheckIcon.tsx';
 
 // Single components
 export { default as SingleCheckbox } from './Single/Checkbox/SingleCheckbox.tsx';
-export { default as SingleFloat } from './Single/Textfield/SingleFloat.tsx';
-export { default as SingleInteger } from './Single/Textfield/SingleInteger.tsx';
-export { default as SingleText } from './Single/Textfield/SingleText.tsx';
+export { default as SingleCheckIcon } from './Single/Checkbox/SingleCheckIcon.tsx';
 
-export { default as SingleFloat2 } from './Single/Textfield/SingleFloat.tsx';
-export { default as SingleInteger2 } from './Single/Textfield/SingleInteger.tsx';
-export { default as SingleText2 } from './Single/Textfield/SingleText.tsx';
+export { default as SingleFloat } from './Single/TextField/SingleFloat.tsx';
+export { default as SingleInteger } from './Single/TextField/SingleInteger.tsx';
+export { default as SingleText } from './Single/TextField/SingleText.tsx';

@@ -1,38 +1,23 @@
-import ObjBase from "../ObjBase.tsx";
-import {IconButton, type IconButtonProps} from "@mui/material";
-import React from "react";
+import type {ObjCheckboxProps, ObjCheckIconProps} from "../../../types";
+import {useContext} from "react";
+import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import {createObjToSingle, fastDeepMerge} from "../../../utils";
+import {SingleCheckIcon} from "../../index.ts";
 
-type ObjCheckIconProps = IconButtonProps & {
-    on: React.ReactNode,
-    off: React.ReactNode
-}
+const ObjCheckIcon = <T extends object>(customProps: ObjCheckIconProps<T>) => {
+    const defaultProps = useContext(FastStartContext).Obj.CheckIcon;
+    const {
+        get, set, on, off,
+        ...props
+    } = fastDeepMerge<ObjCheckIconProps<T>>(defaultProps, customProps);
+    const [value, setValue] = createObjToSingle<T, boolean>(props.name, get, set);
 
-class ObjCheckIcon<TYPE extends object> extends ObjBase<TYPE, boolean, ObjCheckIconProps> {
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
-
-    override getProps(): ObjCheckIconProps {
-        return Object.assign({
-            size: 'small',
-            onClick: this.onClick
-        }, this.props);
-    }
-
-    render() {
-        const {on, off} = this.props;
-
-        return (
-            <IconButton {...this.getProps()}>
-                {this.value ? on : off}
-            </IconButton>
-        );
-    }
-
-    private readonly onClick = () => {
-        this.value = !this.value;
-    }
+    return (
+        <SingleCheckIcon
+            get={value} set={setValue}
+            on={on} off={off}
+        />
+    )
 }
 
 export default ObjCheckIcon;

@@ -1,26 +1,37 @@
-import type {CheckboxProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
-import type {BaseNumberProps, BaseObjectProps, BasePropertyProps, BaseTextProps} from "./props.ts";
+import type {CheckboxProps, IconButtonProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
+import type {BaseCheckIconProps, BaseNumberProps, BaseObjectProps, BasePropertyProps, BaseTextProps} from "./props.ts";
+import type {DeepPartial} from "./types.ts";
 
-export type SingleNumberProps = TextFieldProps & BasePropertyProps<number> & BaseNumberProps;
-export type SingleTextProps = TextFieldProps & BasePropertyProps<string> & BaseTextProps;
-export type SingleCheckboxProps = CheckboxProps & BasePropertyProps<boolean>;
+export type SingleNumberProps = TextFieldProps & BaseNumberProps & BasePropertyProps<number>;
+export type SingleTextProps = TextFieldProps & BaseTextProps & BasePropertyProps<string>;
+export type SingleCheckboxProps = CheckboxProps & Omit<BasePropertyProps<boolean>, 'errorData'>;
+export type SingleCheckIconProps = IconButtonProps & BaseCheckIconProps & Omit<BasePropertyProps<boolean>, 'errorData' | 'label'>;
 
-export type ObjCheckboxProps = BaseObjectProps<{ [key: string]: boolean }> & CheckboxProps;
+export type ObjNumberProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseNumberProps & BaseObjectProps<T, number>;
+export type ObjTextProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseTextProps & BaseObjectProps<T, string>;
+export type ObjCheckboxProps<T extends object> = Omit<CheckboxProps, 'name'> & Omit<BaseObjectProps<T, boolean>, 'errorData'>;
+export type ObjCheckIconProps<T extends object> = Omit<IconButtonProps, 'name'> & BaseCheckIconProps & Omit<BaseObjectProps<T, boolean>, 'errorData' | 'label'>;
 
-interface FastStartDefaultProps {
+
+type FastStartDefaultProps = DeepPartial<{
     Single: {
         Float: SingleNumberProps;
-        Integer: SingleNumberProps,
-        Text: SingleTextProps,
-        Checkbox: SingleCheckboxProps
+        Integer: SingleNumberProps;
+        Text: SingleTextProps;
+        Checkbox: SingleCheckboxProps;
+        CheckIcon: SingleCheckIconProps;
     },
     Obj: {
-        Checkbox: ObjCheckboxProps;
+        Float: ObjNumberProps<object>;
+        Integer: ObjNumberProps<object>;
+        Text: ObjTextProps<object>;
+        Checkbox: ObjCheckboxProps<object>;
+        CheckIcon: ObjCheckIconProps<object>;
     }
-}
+}>;
 
 interface FastStartProviderProps<Theme> extends ThemeProviderProps<Theme> {
-    defaultPropsSingleNumberProps: FastStartDefaultProps;
+    defaultProps: FastStartDefaultProps;
 }
 
 export type {
