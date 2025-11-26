@@ -3,6 +3,7 @@ import * as React from "react";
 import type {InputBaseProps} from "@mui/material/InputBase";
 import type {InputLabelProps} from "@mui/material/InputLabel";
 import type {Dispatch, SetStateAction} from "react";
+import type {SingleOutlinedNumberProps} from "./provider.ts";
 
 type OutlinedInputProps = React.ComponentProps<typeof OutlinedInput>;
 type HtmlInputType = SlotProps<React.ElementType<InputBaseProps['inputProps']>, {}, TextFieldOwnerState>;
@@ -43,12 +44,6 @@ interface BaseNumberProps extends BaseTextProps {
     step?: number;
 }
 
-interface BaseAutocompleteProps<Value, Input> {
-    isLoading?: boolean;
-    items: Value[];
-    converter?: (value: Value) => Input;
-}
-
 export type {
     KeysWithValue,
     OutlinedInputProps,
@@ -59,5 +54,4 @@ export type {
     BaseTextProps,
     BaseCheckIconProps,
     BaseNumberProps,
-    BaseAutocompleteProps
 }

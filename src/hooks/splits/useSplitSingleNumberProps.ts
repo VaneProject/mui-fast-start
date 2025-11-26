@@ -3,7 +3,7 @@ import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
 import React, {useCallback, useMemo, useState} from "react";
 
-const useSplitSingleNumberProps = (
+const useSplitSingleNumberProps = <T>(
     defaultProps: SingleNumberProps,
     customProps: SingleNumberProps,
     process: (value: string) => string,

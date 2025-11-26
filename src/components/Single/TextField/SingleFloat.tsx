@@ -5,7 +5,7 @@ import {TextField} from "@mui/material";
 import {useSplitSingleFloatProps} from "../../../hooks";
 
 const SingleFloat = (customProps: SingleNumberProps) => {
-    const defaultProps = useContext(FastStartContext).Single.Float;
+    const defaultProps = useContext(FastStartContext).Single.Float as SingleNumberProps;
     const props = useSplitSingleFloatProps(defaultProps, customProps);
     return <TextField {...props}/>;
 }

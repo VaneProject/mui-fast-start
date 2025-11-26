@@ -7,7 +7,7 @@ import {
     SingleCheckbox,
     SingleCheckIcon,
     SingleFloat,
-    SingleInteger,
+    SingleInteger, SingleOutlinedFloat,
     SingleText
 } from "../../../src/components";
 
@@ -32,6 +32,14 @@ function App() {
             <Grid size={2}>
                 <SingleFloat
                     label='실수형'
+                    min={-100} max={100}
+                    get={float} set={setFloat}
+                />
+            </Grid>
+            <Grid size={2}>
+                <SingleOutlinedFloat
+                    endAdornment='%'
+                    label='outlined 실수형'
                     min={-100} max={100}
                     get={float} set={setFloat}
                 />

@@ -38,7 +38,12 @@ const createDefaultProps = (props?: FastStartDefaultProps | undefined): FastStar
             Integer: {...integerProps},
             Text: {...textFieldProps},
             Checkbox: {...checkboxProps},
-            CheckIcon: {...checkIconProps}
+            CheckIcon: {...checkIconProps},
+            Outlined: {
+                Float: {
+                    ...floatProps
+                }
+            }
         },
         Obj: {
             Float: {...floatProps},

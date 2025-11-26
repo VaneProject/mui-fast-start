@@ -5,7 +5,7 @@ import {TextField} from "@mui/material";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 
 const SingleText = (customProps: SingleTextProps) => {
-    const defaultProps = useContext(FastStartContext).Single.Text;
+    const defaultProps = useContext(FastStartContext).Single.Text as SingleTextProps;
     const props = useSplitSingleTextProps(defaultProps, customProps);
     return <TextField {...props}/>;
 }

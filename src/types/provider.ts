@@ -1,4 +1,10 @@
-import type {CheckboxProps, IconButtonProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
+import type {
+    CheckboxProps,
+    IconButtonProps,
+    OutlinedInputProps,
+    TextFieldProps,
+    ThemeProviderProps
+} from "@mui/material";
 import type {BaseCheckIconProps, BaseNumberProps, BaseObjectProps, BasePropertyProps, BaseTextProps} from "./props.ts";
 import type {DeepPartial} from "./types.ts";
 
@@ -6,6 +12,8 @@ export type SingleNumberProps = TextFieldProps & BaseNumberProps & BasePropertyP
 export type SingleTextProps = TextFieldProps & BaseTextProps & BasePropertyProps<string>;
 export type SingleCheckboxProps = CheckboxProps & Omit<BasePropertyProps<boolean>, 'errorData'>;
 export type SingleCheckIconProps = IconButtonProps & BaseCheckIconProps & Omit<BasePropertyProps<boolean>, 'errorData' | 'label'>;
+
+export type SingleOutlinedNumberProps = OutlinedInputProps & BaseNumberProps & BasePropertyProps<number>;
 
 export type ObjNumberProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseNumberProps & BaseObjectProps<T, number>;
 export type ObjTextProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseTextProps & BaseObjectProps<T, string>;
@@ -20,6 +28,9 @@ type FastStartDefaultProps = DeepPartial<{
         Text: SingleTextProps;
         Checkbox: SingleCheckboxProps;
         CheckIcon: SingleCheckIconProps;
+        Outlined: {
+            Float: SingleOutlinedNumberProps;
+        }
     },
     Obj: {
         Float: ObjNumberProps<object>;
