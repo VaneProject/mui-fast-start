@@ -1,5 +1,5 @@
 import type {BaseNumberProps, FastStartDefaultProps} from "../types";
-import type {CheckboxProps, IconButtonProps, TextFieldProps} from "@mui/material";
+import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge} from "../utils";
 
 
@@ -24,32 +24,20 @@ const createDefaultProps = (props?: FastStartDefaultProps | undefined): FastStar
         def: 0
     }, textFieldProps);
 
-    const checkboxProps: CheckboxProps = {
-        size: 'small'
-    }
-
-    const checkIconProps: IconButtonProps = {
-        size: 'small'
-    }
-
     return fastDeepMerge({
         Single: {
             Float: {...floatProps},
             Integer: {...integerProps},
             Text: {...textFieldProps},
-            Checkbox: {...checkboxProps},
-            CheckIcon: {...checkIconProps},
-            Outlined: {
-                Float: {
-                    ...floatProps
-                }
-            }
+            Checkbox: {size: 'small'},
+            CheckIcon: {size: 'small'},
         },
         Obj: {
             Float: {...floatProps},
             Integer: {...integerProps},
-            Checkbox: {...checkboxProps},
-
+            Text: {...textFieldProps},
+            Checkbox: {size: 'small'},
+            CheckIcon: {size: 'small'},
         }
     } as FastStartDefaultProps, props);
 }

@@ -3,7 +3,7 @@ import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
 import React, {useCallback, useMemo, useState} from "react";
 
-const useSplitSingleNumberProps = <T>(
+const useSplitSingleNumberProps = (
     defaultProps: SingleNumberProps,
     customProps: SingleNumberProps,
     process: (value: string) => string,
@@ -14,6 +14,7 @@ const useSplitSingleNumberProps = <T>(
     const {
         get, set, errorData,
         minLength, maxLength,
+        startAdornment, endAdornment,
         disappear, def, min, max, step,
         ...props
     } = useMemo(() =>
@@ -92,13 +93,16 @@ const useSplitSingleNumberProps = <T>(
     ), [draft, get]);
 
     return fastDeepMerge<TextFieldProps>({
+        error: !!errorData,
+        helperText: errorData,
         value,
         onChange,
         onSelect,
         onBlur,
         slotProps: {
             htmlInput: {step, min, max, minLength, maxLength, onKeyDown},
-            inputLabel: inputLabel
+            inputLabel: inputLabel,
+            input: {startAdornment, endAdornment}
         }
     }, (props as TextFieldProps));
 }

@@ -16,7 +16,9 @@ function fastDeepMerge<T extends object>(target: DeepPartial<T>, source: T): T {
         return source;
     }
 
-    const stack: [AnyObj, AnyObj][] = [[target as AnyObj, source as AnyObj]];
+    const result: AnyObj = {...target};
+    const stack: [AnyObj, AnyObj][] = [[result, source as AnyObj]];
+    
     while (stack.length) {
         const [tNode, sNode] = stack.pop()!;
 
@@ -27,13 +29,15 @@ function fastDeepMerge<T extends object>(target: DeepPartial<T>, source: T): T {
             const tVal = tNode[key];
 
             if (isPlainObject(tVal) && isPlainObject(sVal)) {
-                stack.push([tVal, sVal]);
+                const copy = {...tVal};
+                tNode[key] = copy;
+                stack.push([copy, sVal]);
             } else {
                 tNode[key] = sVal;
             }
         }
     }
-    return target as T;
+    return result as T;
 }
 
 

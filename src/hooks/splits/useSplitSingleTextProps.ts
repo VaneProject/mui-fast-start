@@ -10,6 +10,7 @@ const useSplitSingleTextProps = (
     const {
         get, set, errorData,
         minLength, maxLength,
+        startAdornment, endAdornment,
         ...props
     } = fastDeepMerge({...defaultProps}, customProps);
 
@@ -23,7 +24,8 @@ const useSplitSingleTextProps = (
         value: get,
         onChange,
         slotProps: {
-            htmlInput: {minLength, maxLength}
+            htmlInput: {minLength, maxLength},
+            input: {startAdornment, endAdornment}
         }
     }, (props as TextFieldProps));
 }

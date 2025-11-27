@@ -7,7 +7,7 @@ import {IconButton} from "@mui/material";
 const SingleCheckIcon = (customProps: SingleCheckIconProps) => {
     const defaultProps = useContext(FastStartContext).Single.CheckIcon;
     const {
-        get, set, off, on,
+        get, set, on, off,
         ...props
     } = fastDeepMerge<SingleCheckIconProps>(defaultProps, customProps);
 
