@@ -1,7 +1,7 @@
-import type {SingleCheckIconProps} from "../../../types";
+import type {SingleCheckIconProps} from "@/types";
 import {useCallback, useContext} from "react";
-import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
-import {fastDeepMerge} from "../../../utils";
+import {FastStartContext} from '@styles/FastStartProvider.tsx';
+import {fastDeepMerge} from "@/utils";
 import {IconButton} from "@mui/material";
 
 const SingleCheckIcon = (customProps: SingleCheckIconProps) => {

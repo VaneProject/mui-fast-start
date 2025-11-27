@@ -1,8 +1,8 @@
 import {Checkbox, FormControlLabel} from "@mui/material";
 import React, {useCallback, useContext} from "react";
-import type {SingleCheckboxProps} from "../../../types";
-import {fastDeepMerge} from "../../../utils";
-import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import type {SingleCheckboxProps} from "@/types";
+import {fastDeepMerge} from "@/utils";
+import {FastStartContext} from '@styles/FastStartProvider.tsx';
 
 const SingleCheckbox = (customProps: SingleCheckboxProps) => {
     const defaultProps = useContext(FastStartContext).Single.Checkbox;

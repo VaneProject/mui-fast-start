@@ -1,7 +1,7 @@
 import {createContext} from "react";
-import type {FastStartDefaultProps, FastStartProviderProps} from "../types";
+import type {FastStartDefaultProps, FastStartProviderProps} from "@/types";
 import {type Theme, ThemeProvider} from "@mui/material";
-import createDefaultProps from "./createDefaultProps.ts";
+import createDefaultProps from './createDefaultProps';
 
 export const FastStartContext = createContext<FastStartDefaultProps>(createDefaultProps());
 

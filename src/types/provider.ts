@@ -1,6 +1,6 @@
 import type {CheckboxProps, IconButtonProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
-import type {BaseCheckIconProps, BaseNumberProps, BaseObjectProps, BasePropertyProps, BaseTextProps} from "./props.ts";
-import type {DeepPartial} from "./types.ts";
+import type {BaseCheckIconProps, BaseNumberProps, BaseObjectProps, BasePropertyProps, BaseTextProps} from './props';
+import type {DeepPartial} from './types';
 
 export type SingleNumberProps = TextFieldProps & BaseNumberProps & BasePropertyProps<number>;
 export type SingleTextProps = TextFieldProps & BaseTextProps & BasePropertyProps<string>;

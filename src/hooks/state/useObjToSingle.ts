@@ -1,4 +1,4 @@
-import type {KeysWithValue} from "../../types";
+import type {KeysWithValue} from "@/types";
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback} from "react";
 
