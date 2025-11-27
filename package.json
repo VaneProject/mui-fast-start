@@ -30,6 +30,21 @@
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs.js",
       "types": "./dist/types/components/index.d.ts"
+    },
+    "./styles": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/styles/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/hooks/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/types/index.d.ts"
     }
   },
   "peerDependencies": {

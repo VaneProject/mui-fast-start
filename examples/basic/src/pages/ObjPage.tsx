@@ -1,6 +1,6 @@
-import { Grid, InputAdornment } from "@mui/material";
+import { Grid, InputAdornment, TextField } from "@mui/material";
+import { ObjCheckbox, ObjCheckIcon, ObjFloat, ObjInteger, ObjText } from "mui-fast-start";
 import { useState } from "react";
-import { ObjCheckbox, ObjCheckIcon, ObjFloat, ObjInteger, ObjText } from "../../../../src/components";
 
 type TempType = {
     check1: boolean,
@@ -19,9 +19,22 @@ const ObjPage = () => {
         text: ''
     });
 
+    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTemp({...temp, text: e.target.value});
+    }
 
     return (
         <Grid container>
+            <TextField
+                fullWidth={true}
+                autoComplete="off"
+                size="small"
+                variant="outlined" 
+                label='테스트'
+                value={temp.text}
+                onChange={handleTextChange}
+            />
+
             <Grid size={12}>
                 {JSON.stringify(temp)}
             </Grid>

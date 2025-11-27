@@ -1,10 +1,13 @@
-// Types
 export type {
     SingleNumberProps,
     SingleTextProps,
     SingleCheckboxProps,
-    SingleCheckIconProps
+    SingleCheckIconProps,
+    FastStartDefaultProps,
+    FastStartProviderProps
 } from '../types';
+
+export { FastStartProvider, FastStartContext } from '../styles';
 
 // Object components
 export { default as ObjCheckbox } from './Obj/Checkbox/ObjCheckbox';

@@ -1,12 +1,14 @@
-import { Grid, InputAdornment } from "@mui/material";
-import { useState } from "react";
-import { SingleCheckbox, SingleCheckIcon, SingleFloat, SingleInteger, SingleText } from "../../../../src/components";
+import { Grid, InputAdornment, TextField } from "@mui/material";
+import { SingleCheckbox, SingleCheckIcon, SingleFloat, SingleInteger, SingleText } from "mui-fast-start";
+import React, { useState } from "react";
 
 const SinglePage = () => {
     const [float, setFloat] = useState<number>(0);
     const [integer, setInteger] = useState<number>(0);
     const [text, setText] = useState<string>('');
     const [checked, setChecked] = useState<boolean>(false);
+
+
 
     return (
         <Grid container>
