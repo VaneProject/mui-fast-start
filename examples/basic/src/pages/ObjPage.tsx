@@ -11,6 +11,9 @@ type TempType = {
 }
 
 const ObjPage = () => {
+    const [error, setError] = useState<object>({
+        text: '에러 메시지',
+    })
     const [temp, setTemp] = useState<TempType>({
         check1: false,
         check2: false,
@@ -56,18 +59,21 @@ const ObjPage = () => {
                 <ObjFloat<TempType>
                     label='실수형' name='float'
                     get={temp} set={setTemp}
+                    errorData={error}
                 />
             </Grid>
             <Grid size={2}>
                 <ObjInteger<TempType>
                     label='정수형' name='integer'
                     get={temp} set={setTemp}
+                    errorData={error}
                 />
             </Grid>
             <Grid size={2}>
                 <ObjText<TempType>
                     label='텍스트' name='text'
                     get={temp} set={setTemp}
+                    errorData={error}
                     startAdornment={(
                         <InputAdornment position="start">
                             S
