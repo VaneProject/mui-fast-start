@@ -89,7 +89,7 @@ const useSplitSingleNumberProps = (
 
     const value = useMemo(() => (draft == null ? get : draft), [get, draft]);
     const inputLabel: InputLabelType = useMemo(() => (
-        (draft == null && (get == null || isNaN(get))) ? {} : { shrink: true }
+        (draft == null && (!get || isNaN(get))) ? {} : { shrink: true }
     ), [draft, get]);
 
     return fastDeepMerge<TextFieldProps>({
