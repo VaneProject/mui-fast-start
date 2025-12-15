@@ -1,10 +1,9 @@
-import React, {StrictMode} from 'react'
+import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import {createTheme, CssBaseline} from "@mui/material";
-import { createDefaultProps } from 'mui-fast-start/styles';
-import { FastStartProvider } from 'mui-fast-start';
+import { FastStartProvider, createDefaultProps } from 'mui-fast-start';
 
 const theme = createTheme();
 const defaultProps = createDefaultProps({

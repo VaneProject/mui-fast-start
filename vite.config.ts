@@ -6,21 +6,13 @@ import {resolve} from 'path'
 export default defineConfig({
     plugins: [react()],
     resolve: {
-        alias: {
-            '@': resolve(__dirname, 'src'),
-            '@components': resolve(__dirname, 'src/components'),
-            '@hooks': resolve(__dirname, 'src/hooks'),
-            '@styles': resolve(__dirname, 'src/styles'),
-            '@types': resolve(__dirname, 'src/types'),
-            '@utils': resolve(__dirname, 'src/utils'),
-        }
     },
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/components/index.ts'),
+            entry: resolve(__dirname, "src/index.ts"),
             name: 'MuiFastStart',
-            fileName: (format) => format === 'es' ? 'index.esm.js' : 'index.cjs.js',
-            formats: ['es', 'cjs']
+            fileName: 'index',
+            formats: ['es']
         },
         rolldownOptions: {
             external: [

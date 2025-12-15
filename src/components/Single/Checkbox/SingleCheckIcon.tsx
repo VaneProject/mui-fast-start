@@ -1,11 +1,12 @@
-import type {SingleCheckIconProps} from "@/types";
 import {useCallback, useContext} from "react";
-import {FastStartContext} from '@styles/FastStartProvider.tsx';
-import {fastDeepMerge} from "@/utils";
 import {IconButton} from "@mui/material";
+import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import {SingleCheckIconProps} from "../../../types";
+import {fastDeepMerge} from "../../../utils";
 
-const SingleCheckIcon = (customProps: SingleCheckIconProps) => {
-    const defaultProps = useContext(FastStartContext).Single.CheckIcon;
+
+export const SingleCheckIcon = (customProps: SingleCheckIconProps) => {
+    const defaultProps = useContext(FastStartContext)?.Single?.CheckIcon;
     const {
         get, set, on, off,
         ...props
@@ -22,5 +23,3 @@ const SingleCheckIcon = (customProps: SingleCheckIconProps) => {
         </IconButton>
     )
 }
-
-export default SingleCheckIcon;

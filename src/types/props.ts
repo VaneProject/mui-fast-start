@@ -45,6 +45,15 @@ interface BaseNumberProps extends BaseTextProps {
     step?: number;
 }
 
+
+interface BaseSelectProps<I> {
+    renderMenuItem?: (item: I) => React.ReactNode;
+}
+
+interface BaseSelectItemProps<I> extends BaseSelectProps<I> {
+    items: I[];
+}
+
 export type {
     KeysWithValue,
     HtmlInputType,
@@ -54,4 +63,5 @@ export type {
     BaseTextProps,
     BaseCheckIconProps,
     BaseNumberProps,
+    BaseSelectItemProps
 }

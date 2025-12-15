@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import {
     SingleCheckIcon
-} from "../../../src/components";
+} from "mui-fast-start";
 import './App.css';
 import ObjPage from "./pages/ObjPage";
 import SinglePage from "./pages/SinglePage";

@@ -1,5 +1,12 @@
-const floatCalculate = (value: string | null, min: number, max: number, def: number): number => {
-    let calc: number = 0;
+type CalculateNumber = number | null | undefined;
+
+const floatCalculate = (
+    value: string | null,
+    min: CalculateNumber,
+    max: CalculateNumber,
+    def: CalculateNumber
+): CalculateNumber => {
+    let calc: CalculateNumber = 0;
     if (value == null || isEmpty(value)) {
         calc = def;
     } else {
@@ -12,17 +19,20 @@ const floatCalculate = (value: string | null, min: number, max: number, def: num
         }
     }
 
-    if (max != null) {
-        calc = Math.min(max, calc);
-    }
-    if (min != null) {
-        calc = Math.max(min, calc);
+    if (calc != null) {
+        if (max != null) calc = Math.min(max, calc);
+        if (min != null) calc = Math.min(min, calc);
     }
     return calc;
 }
 
-const integerCalculate = (value: string | null, min: number, max: number, def: number): number => {
-    let calc: number = 0;
+const integerCalculate = (
+    value: string | null,
+    min: CalculateNumber,
+    max: CalculateNumber,
+    def: CalculateNumber
+): CalculateNumber => {
+    let calc: CalculateNumber = 0;
     if (value == null || isEmpty(value)) {
         calc = def;
     } else {
@@ -33,11 +43,9 @@ const integerCalculate = (value: string | null, min: number, max: number, def: n
         }
     }
 
-    if (max != null) {
-        calc = Math.min(max, calc);
-    }
-    if (min != null) {
-        calc = Math.max(min, calc);
+    if (calc != null) {
+        if (max != null) calc = Math.min(max, calc);
+        if (min != null) calc = Math.min(min, calc);
     }
     return calc;
 }

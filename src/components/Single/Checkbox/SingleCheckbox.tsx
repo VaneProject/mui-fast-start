@@ -1,11 +1,12 @@
 import {Checkbox, FormControlLabel} from "@mui/material";
 import React, {useCallback, useContext} from "react";
-import type {SingleCheckboxProps} from "@/types";
-import {fastDeepMerge} from "@/utils";
-import {FastStartContext} from '@styles/FastStartProvider.tsx';
+import {SingleCheckboxProps} from "../../../types";
+import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import {fastDeepMerge} from "../../../utils";
 
-const SingleCheckbox = (customProps: SingleCheckboxProps) => {
-    const defaultProps = useContext(FastStartContext).Single.Checkbox;
+
+export const SingleCheckbox = (customProps: SingleCheckboxProps) => {
+    const defaultProps = useContext(FastStartContext)?.Single?.Checkbox;
     const {
         get, set, label,
         ...props
@@ -28,5 +29,3 @@ const SingleCheckbox = (customProps: SingleCheckboxProps) => {
         />
     );
 };
-
-export default SingleCheckbox;

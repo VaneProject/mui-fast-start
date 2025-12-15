@@ -17,13 +17,13 @@
     "jsx": "react-jsx",
 
     /* Path alias for local library development */
-    "baseUrl": ".",
-    "paths": {
-      "mui-fast-start": ["../../src/components/index.ts"],
-      "mui-fast-start/styles": ["../../src/styles/index.ts"],
-      "mui-fast-start/hooks": ["../../src/hooks/index.ts"],
-      "mui-fast-start/types": ["../../src/types/index.ts"]
-    },
+//    "baseUrl": ".",
+//    "paths": {
+//      "mui-fast-start": ["../../src/index.ts"],
+//      "mui-fast-start/styles": ["../../src/styles/index.ts"],
+//      "mui-fast-start/hooks": ["../../src/hooks/index.ts"],
+//      "mui-fast-start/types": ["../../src/types/index.ts"]
+//    },
 
     /* Linting */
     "strict": true,

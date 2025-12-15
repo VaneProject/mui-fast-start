@@ -1,10 +1,11 @@
 import {createContext} from "react";
-import type {FastStartDefaultProps, FastStartProviderProps} from "@/types";
 import {ThemeProvider} from "@mui/material";
-import createDefaultProps from './createDefaultProps';
 import type {DefaultTheme} from "@mui/system";
+import {createDefaultProps} from "./createDefaultProps";
+import {FastStartDefaultProps, FastStartProviderProps} from "../types";
 
-export const FastStartContext = createContext<FastStartDefaultProps>(createDefaultProps());
+
+const FastStartContext = createContext<FastStartDefaultProps>(createDefaultProps());
 
 const FastStartProvider = <T = DefaultTheme>(props: FastStartProviderProps<T>) => {
     const {
@@ -19,4 +20,7 @@ const FastStartProvider = <T = DefaultTheme>(props: FastStartProviderProps<T>) =
     )
 }
 
-export default FastStartProvider;
+export {
+    FastStartContext,
+    FastStartProvider
+}

@@ -1,9 +1,11 @@
-import type {BaseNumberProps, FastStartDefaultProps} from "../types";
 import type {TextFieldProps} from "@mui/material";
+import {BaseNumberProps, FastStartDefaultProps} from "../types";
 import {fastDeepMerge} from "../utils";
 
 
-const createDefaultProps = (props?: FastStartDefaultProps | undefined): FastStartDefaultProps => {
+export const createDefaultProps = (
+    props?: FastStartDefaultProps | undefined
+): FastStartDefaultProps => {
     const textFieldProps: TextFieldProps & BaseNumberProps = {
         fullWidth: true,
         autoComplete: 'off',
@@ -39,7 +41,5 @@ const createDefaultProps = (props?: FastStartDefaultProps | undefined): FastStar
             Checkbox: {size: 'small'},
             CheckIcon: {size: 'small'},
         }
-    } as FastStartDefaultProps, props);
+    } as FastStartDefaultProps, props as FastStartDefaultProps);
 }
-
-export default createDefaultProps;

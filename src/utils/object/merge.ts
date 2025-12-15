@@ -1,6 +1,7 @@
-import type {DeepPartial} from "../../types";
+import {DeepPartial} from "../../types";
 
 type AnyObj = Record<string, any>;
+
 function isPlainObject(v: any): v is AnyObj {
     return v !== null && typeof v === "object" && v.constructor === Object;
 }
@@ -9,7 +10,7 @@ function isEmpty(v: object): boolean {
     return Object.keys(v).length === 0;
 }
 
-function fastDeepMerge<T extends object>(target: DeepPartial<T>, source: T): T {
+function fastDeepMerge<T extends object>(target: DeepPartial<T> | undefined, source: T): T {
     if (target === source || !isPlainObject(source) || isEmpty(source)) {
         return target as T;
     } else if (!isPlainObject(target) || isEmpty(target)) {
@@ -18,7 +19,7 @@ function fastDeepMerge<T extends object>(target: DeepPartial<T>, source: T): T {
 
     const result: AnyObj = {...target};
     const stack: [AnyObj, AnyObj][] = [[result, source as AnyObj]];
-    
+
     while (stack.length) {
         const [tNode, sNode] = stack.pop()!;
 
@@ -39,7 +40,6 @@ function fastDeepMerge<T extends object>(target: DeepPartial<T>, source: T): T {
     }
     return result as T;
 }
-
 
 
 export {

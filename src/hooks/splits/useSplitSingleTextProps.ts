@@ -1,6 +1,6 @@
-import type {SingleTextProps} from "../../types";
 import type {TextFieldProps} from "@mui/material";
 import React, {useCallback} from "react";
+import {SingleTextProps} from "../../types";
 import {fastDeepMerge} from "../../utils";
 
 const useSplitSingleTextProps = (
@@ -14,9 +14,12 @@ const useSplitSingleTextProps = (
         ...props
     } = fastDeepMerge({...defaultProps}, customProps);
 
-    const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        set(event.currentTarget.value);
-    }, [set]);
+    const onChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(event.currentTarget.value);
+        },
+        [set]
+    );
 
     return fastDeepMerge<TextFieldProps>({
         error: !!errorData,

@@ -1,12 +1,18 @@
-import type {CheckboxProps, IconButtonProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
-import type {BaseCheckIconProps, BaseNumberProps, BaseObjectProps, BasePropertyProps, BaseTextProps} from './props';
+import type {CheckboxProps, IconButtonProps, SelectProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
+import {
+    BaseCheckIconProps,
+    BaseNumberProps,
+    BaseObjectProps,
+    BasePropertyProps,
+    BaseSelectItemProps,
+    BaseTextProps
+} from './props';
 import type {DeepPartial} from './types';
 
 export type SingleNumberProps = TextFieldProps & BaseNumberProps & BasePropertyProps<number>;
 export type SingleTextProps = TextFieldProps & BaseTextProps & BasePropertyProps<string>;
 export type SingleCheckboxProps = CheckboxProps & Omit<BasePropertyProps<boolean>, 'errorData'>;
 export type SingleCheckIconProps = IconButtonProps & BaseCheckIconProps & Omit<BasePropertyProps<boolean>, 'errorData' | 'label'>;
-
 
 export type ObjNumberProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseNumberProps & BaseObjectProps<T, number>;
 export type ObjTextProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseTextProps & BaseObjectProps<T, string>;

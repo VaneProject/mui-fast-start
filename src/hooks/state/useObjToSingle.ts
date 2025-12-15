@@ -1,6 +1,6 @@
-import type {KeysWithValue} from "@/types";
 import type {Dispatch, SetStateAction} from "react";
-import {useCallback, useRef} from "react";
+import {useCallback} from "react";
+import {KeysWithValue} from "../../types";
 
 const useObjToSingle = <Type extends object, Target>(
     name: KeysWithValue<Type, Target> | string,

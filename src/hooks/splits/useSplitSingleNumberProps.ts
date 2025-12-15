@@ -1,13 +1,21 @@
-import type {InputLabelType, SingleNumberProps} from "../../types";
 import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
 import React, {useCallback, useMemo, useState} from "react";
+import {InputLabelType, SingleNumberProps} from "../../types";
+
+type CalculateNumber = number | null | undefined;
+type CalculateFunction = (
+    value: string | null,
+    min: CalculateNumber,
+    max: CalculateNumber,
+    def: CalculateNumber
+) => CalculateNumber;
 
 const useSplitSingleNumberProps = (
     defaultProps: SingleNumberProps,
     customProps: SingleNumberProps,
     process: (value: string) => string,
-    calculate: (value: string | null, min: number, max: number, def: number) => number,
+    calculate: CalculateFunction,
     lockKeys: string[] = []
 ): TextFieldProps => {
     const [draft, setDraft] = useState<string | null>(null);
@@ -45,24 +53,29 @@ const useSplitSingleNumberProps = (
         if (draft == null) setDraft(get.toString());
     }, [draft, get]);
 
-    const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const result: string = getProcess(event);
-        const num: number = getCalculate(result);
-        if (!isNaN(num) && get != num) set(num);
+    const onChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const result: string = getProcess(event);
+            const num: CalculateNumber = getCalculate(result);
+            if (num != null && !isNaN(num) && get != num) {
+                set(num);
+            }
 
-        setDraft(event.currentTarget.value);
-    }, [getProcess, getCalculate, set, get]);
+            setDraft(event.currentTarget.value);
+        },
+        [getProcess, getCalculate, get, set]
+    );
 
     const onBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
         const {value} = event.currentTarget;
 
         setDraft(null);
-        const num: number = getCalculate(value);
-        if (get != num) set(num);
+        const num: CalculateNumber = getCalculate(value);
+        if (get != num) set(num as number);
     }, [getCalculate, get, set]);
 
     const onKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (lockKeys.includes(event.key)) {
+        if (lockKeys.includes(event.key) || step == null) {
             event.preventDefault();
             return;
         }
@@ -70,7 +83,10 @@ const useSplitSingleNumberProps = (
         const input = event.currentTarget;
         if (event.key === "ArrowUp") {
             event.preventDefault();
-            const num: number = getKeyboardValue(event) + step;
+            const calNum: CalculateNumber = getKeyboardValue(event);
+            if (calNum == null) return;
+
+            const num: number = calNum + step;
             if (max != null && num > max) {
                 input.value = max.toString();
             } else {
@@ -78,14 +94,17 @@ const useSplitSingleNumberProps = (
             }
         } else if (event.key === "ArrowDown") {
             event.preventDefault();
-            const num: number = getKeyboardValue(event) - step;
+            const calNum: CalculateNumber = getKeyboardValue(event);
+            if (calNum == null) return;
+
+            const num: number = calNum - step;
             if (min != null && num < min) {
                 input.value = min.toString();
             } else {
                 input.value = digitRound(num, step).toString();
             }
         }
-    }, [getKeyboardValue, max, min, step]);
+    }, [getKeyboardValue, lockKeys, max, min, step]);
 
     const value = useMemo(() => (draft == null ? get : draft), [get, draft]);
     const inputLabel: InputLabelType = useMemo(() => (
