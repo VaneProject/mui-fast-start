@@ -1,12 +1,13 @@
 import {useContext} from "react";
-import useSplitSingleTextProps from '../../../hooks/splits/useSplitSingleTextProps';
-import {TextField} from "@mui/material";
+import useSplitTextProps from '../../../hooks/splits/useSplitTextProps.ts';
+import {TextField, TextFieldProps} from "@mui/material";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
-import {SingleTextProps} from "../../../types";
+import {MfsSingleTextProps} from "../../../types";
 
+export type SingleTextProps = TextFieldProps & MfsSingleTextProps;
 
 export const SingleText = (customProps: SingleTextProps) => {
-    const defaultProps = useContext(FastStartContext)?.Single?.Text as SingleTextProps;
-    const props = useSplitSingleTextProps(defaultProps, customProps);
+    const defaultProps = useContext(FastStartContext)?.Single?.MfsText;
+    const props = useSplitTextProps(defaultProps, customProps);
     return <TextField {...props}/>;
 }

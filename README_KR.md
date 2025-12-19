@@ -280,7 +280,7 @@ const [temp, setTemp] = useState<TempType>({
 ----
 
 
-### ObjFloat
+### ObjNumber
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
 | 이름 | 타입 | 기본값 | 설명 |

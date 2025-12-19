@@ -1,16 +1,18 @@
 import {useCallback, useContext} from "react";
-import {IconButton} from "@mui/material";
+import {IconButton, IconButtonProps} from "@mui/material";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
-import {SingleCheckIconProps} from "../../../types";
-import {fastDeepMerge} from "../../../utils";
+import {MfsSingleCheckIconProps} from "../../../types";
 
+export type SingleCheckIconProps = IconButtonProps & MfsSingleCheckIconProps;
 
 export const SingleCheckIcon = (customProps: SingleCheckIconProps) => {
-    const defaultProps = useContext(FastStartContext)?.Single?.CheckIcon;
+    const defaultProps = useContext(FastStartContext)?.Single?.MfsCheckIcon;
     const {
         get, set, on, off,
         ...props
-    } = fastDeepMerge<SingleCheckIconProps>(defaultProps, customProps);
+    } = defaultProps == null
+        ? customProps
+        : Object.assign({...defaultProps}, customProps);
 
     const onClick = useCallback(() => set((state) => !state), [set]);
 

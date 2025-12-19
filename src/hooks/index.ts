@@ -1,3 +1,3 @@
-export * from './splits/useSplitSingleNumberProps';
-export * from './splits/useSplitSingleTextProps';
+export * from './splits/useSplitNumberProps.ts';
+export * from './splits/useSplitTextProps.ts';
 export * from './state/useObjToSingle';

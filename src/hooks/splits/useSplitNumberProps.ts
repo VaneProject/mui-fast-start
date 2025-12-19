@@ -1,7 +1,8 @@
 import type {TextFieldProps} from "@mui/material";
 import {fastDeepMerge, floatCalculate, integerCalculate, processFloat, processInteger} from "../../utils";
-import React, {useCallback, useMemo, useState} from "react";
-import {InputLabelType, SingleNumberProps} from "../../types";
+import React, {useCallback, useState} from "react";
+import {MfsSingleNumberProps} from "../../types";
+import {SingleNumberProps} from "../../components/Single/TextField/SingleNumber.tsx";
 
 type CalculateNumber = number | null | undefined;
 type CalculateFunction = (
@@ -11,8 +12,8 @@ type CalculateFunction = (
     def: CalculateNumber
 ) => CalculateNumber;
 
-const useSplitSingleNumberProps = (
-    defaultProps: SingleNumberProps,
+const useSplitNumberProps = (
+    defaultProps: Partial<MfsSingleNumberProps> | undefined,
     customProps: SingleNumberProps,
     process: (value: string) => string,
     calculate: CalculateFunction,
@@ -20,61 +21,67 @@ const useSplitSingleNumberProps = (
 ): TextFieldProps => {
     const [draft, setDraft] = useState<string | null>(null);
     const {
-        get, set, errorData,
+        get, set, err,
         minLength, maxLength,
         startAdornment, endAdornment,
-        disappear, def, min, max, step,
+        def, min, max, step,
         ...props
-    } = useMemo(() =>
-        fastDeepMerge<SingleNumberProps>({...defaultProps}, customProps),
-        [defaultProps, customProps]
-    );
+    } = (defaultProps == null)
+        ? customProps
+        : Object.assign({...defaultProps}, customProps);
 
-    const getCalculate = useCallback((value: string | null) => (
-        calculate(value, min, max, def)
-    ), [calculate, min, max, def]);
+    const getCalculate = (
+        value: string | null
+    ) => calculate(value, min, max, def);
 
-    const getKeyboardValue = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    const getKeyboardValue = (
+        event: React.KeyboardEvent<HTMLInputElement>
+    ) => {
         const {value, valueAsNumber} = event.currentTarget;
         return isNaN(valueAsNumber) ? getCalculate(value) : valueAsNumber;
-    }, [getCalculate]);
+    }
 
-    const getProcess = useCallback((event: React.ChangeEvent<HTMLInputElement>): string => {
-        const target = event.currentTarget;
-        const value: string = process(target.value);
-        if (value != target.value) {
-            target.value = value;
-        }
-        return value;
-    }, [process]);
-
-
-    const onSelect = useCallback(() => {
-        if (draft == null) setDraft(get.toString());
-    }, [draft, get]);
-
-    const onChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const result: string = getProcess(event);
-            const num: CalculateNumber = getCalculate(result);
-            if (num != null && !isNaN(num) && get != num) {
-                set(num);
+    const getProcess = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>): string => {
+            const target = event.currentTarget;
+            const value: string = process(target.value);
+            if (value != target.value) {
+                target.value = value;
             }
-
-            setDraft(event.currentTarget.value);
+            return value;
         },
-        [getProcess, getCalculate, get, set]
+        [process]
     );
 
-    const onBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+    const onSelect = () => {
+        if (draft == null) setDraft(get.toString());
+    };
+
+    const onChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const result: string = getProcess(event);
+        const num: CalculateNumber = getCalculate(result);
+        if (num != null && !isNaN(num) && get != num) {
+            set(num);
+        }
+
+        setDraft(event.currentTarget.value);
+    }
+
+    const onBlur = (
+        event: React.FocusEvent<HTMLInputElement>
+    ) => {
         const {value} = event.currentTarget;
 
         setDraft(null);
         const num: CalculateNumber = getCalculate(value);
         if (get != num) set(num as number);
-    }, [getCalculate, get, set]);
+    };
 
-    const onKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    const onKeyDown = (
+        event: React.KeyboardEvent<HTMLInputElement>
+    ) => {
         if (lockKeys.includes(event.key) || step == null) {
             event.preventDefault();
             return;
@@ -104,23 +111,18 @@ const useSplitSingleNumberProps = (
                 input.value = digitRound(num, step).toString();
             }
         }
-    }, [getKeyboardValue, lockKeys, max, min, step]);
-
-    const value = useMemo(() => (draft == null ? get : draft), [get, draft]);
-    const inputLabel: InputLabelType = useMemo(() => (
-        (draft == null && (!get || isNaN(get))) ? {} : { shrink: true }
-    ), [draft, get]);
-
+    };
+    
     return fastDeepMerge<TextFieldProps>({
-        error: !!errorData,
-        helperText: errorData,
-        value,
+        error: !!err,
+        helperText: err,
+        value: (draft == null ? get : draft),
         onChange,
         onSelect,
         onBlur,
         slotProps: {
             htmlInput: {step, min, max, minLength, maxLength, onKeyDown},
-            inputLabel: inputLabel,
+            inputLabel: (draft == null && (!get || isNaN(get))) ? {} : { shrink: true },
             input: {startAdornment, endAdornment}
         }
     }, (props as TextFieldProps));
@@ -137,17 +139,17 @@ const digitRound = (num: number, step: number) => {
 }
 
 const useSplitSingleFloatProps = (
-    defaultProps: SingleNumberProps,
+    defaultProps: Partial<MfsSingleNumberProps> | undefined,
     customProps: SingleNumberProps,
-): TextFieldProps => useSplitSingleNumberProps(
+): TextFieldProps => useSplitNumberProps(
     defaultProps, customProps,
     processFloat, floatCalculate
 );
 
 const useSplitSingleIntegerProps = (
-    defaultProps: SingleNumberProps,
+    defaultProps: Partial<MfsSingleNumberProps> | undefined,
     customProps: SingleNumberProps,
-): TextFieldProps => useSplitSingleNumberProps(
+): TextFieldProps => useSplitNumberProps(
     defaultProps, customProps,
     processInteger, integerCalculate,
     [".", "e", "E"]

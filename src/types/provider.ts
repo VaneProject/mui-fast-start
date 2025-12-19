@@ -1,47 +1,54 @@
-import type {CheckboxProps, IconButtonProps, SelectProps, TextFieldProps, ThemeProviderProps} from "@mui/material";
 import {
-    BaseCheckIconProps,
-    BaseNumberProps,
-    BaseObjectProps,
-    BasePropertyProps,
-    BaseSelectItemProps,
-    BaseTextProps
+    MfsCheckIconProps,
+    MfsErrorProps,
+    MfsLabelProps,
+    MfsNumberProps,
+    MfsObjectProps,
+    MfsPropertyProps,
+    MfsSelectListProps,
+    MfsTextProps
 } from './props';
-import type {DeepPartial} from './types';
-
-export type SingleNumberProps = TextFieldProps & BaseNumberProps & BasePropertyProps<number>;
-export type SingleTextProps = TextFieldProps & BaseTextProps & BasePropertyProps<string>;
-export type SingleCheckboxProps = CheckboxProps & Omit<BasePropertyProps<boolean>, 'errorData'>;
-export type SingleCheckIconProps = IconButtonProps & BaseCheckIconProps & Omit<BasePropertyProps<boolean>, 'errorData' | 'label'>;
-
-export type ObjNumberProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseNumberProps & BaseObjectProps<T, number>;
-export type ObjTextProps<T extends object> = Omit<TextFieldProps, 'name'> & BaseTextProps & BaseObjectProps<T, string>;
-export type ObjCheckboxProps<T extends object> = Omit<CheckboxProps, 'name'> & Omit<BaseObjectProps<T, boolean>, 'errorData'>;
-export type ObjCheckIconProps<T extends object> = Omit<IconButtonProps, 'name'> & BaseCheckIconProps & Omit<BaseObjectProps<T, boolean>, 'errorData' | 'label'>;
+import {MfsObjectError, MfsSingleError} from "./props.internal.ts";
 
 
-type FastStartDefaultProps = DeepPartial<{
-    Single: {
-        Float: SingleNumberProps;
-        Integer: SingleNumberProps;
-        Text: SingleTextProps;
-        Checkbox: SingleCheckboxProps;
-        CheckIcon: SingleCheckIconProps;
-    },
-    Obj: {
-        Float: ObjNumberProps<object>;
-        Integer: ObjNumberProps<object>;
-        Text: ObjTextProps<object>;
-        Checkbox: ObjCheckboxProps<object>;
-        CheckIcon: ObjCheckIconProps<object>;
-    }
-}>;
+// Single
+export interface MfsSingleNumberProps extends
+    MfsNumberProps,
+    MfsErrorProps<number, MfsSingleError> {}
 
-interface FastStartProviderProps<Theme> extends ThemeProviderProps<Theme> {
-    defaultProps: FastStartDefaultProps;
-}
+export interface MfsSingleTextProps extends
+    MfsTextProps,
+    MfsErrorProps<string, MfsSingleError> {}
 
-export type {
-    FastStartDefaultProps,
-    FastStartProviderProps,
-}
+export type MfsSingleCheckboxProps =
+    MfsLabelProps<boolean>;
+
+export interface MfsSingleCheckIconProps extends
+    MfsCheckIconProps,
+    MfsPropertyProps<boolean> {}
+
+export interface MfsSingleSelectOneProps<T> extends
+    MfsSelectListProps<T>,
+    MfsErrorProps<T, MfsSingleError> {}
+
+
+// Object
+export interface MfsObjectNumberProps<T extends object> extends
+    MfsNumberProps,
+    MfsObjectProps<T, number>,
+    MfsErrorProps<T, MfsObjectError<T, number>> {}
+
+export interface MfsObjectTextProps<T extends object> extends
+    MfsTextProps,
+    MfsObjectProps<T, string>,
+    MfsErrorProps<T, MfsObjectError<T, string>> {}
+
+export interface MfsObjectCheckboxProps<T extends object> extends
+    MfsLabelProps<T>,
+    MfsObjectProps<T, boolean> {}
+
+export interface MfsObjectCheckIconProps<T extends object> extends
+    MfsPropertyProps<T>,
+    MfsCheckIconProps,
+    MfsObjectProps<T, boolean> {}
+

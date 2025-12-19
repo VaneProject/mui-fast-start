@@ -1,9 +1,9 @@
 import type {Dispatch, SetStateAction} from "react";
 import {useCallback} from "react";
-import {KeysWithValue} from "../../types";
+import {MfsObjectKeys} from "../../types/props.internal.ts";
 
 const useObjToSingle = <Type extends object, Target>(
-    name: KeysWithValue<Type, Target> | string,
+    name: MfsObjectKeys<Type, Target>,
     get: Type,
     set: Dispatch<SetStateAction<Type>>
 ): [Target, Dispatch<SetStateAction<Target>>] => {
@@ -17,6 +17,7 @@ const useObjToSingle = <Type extends object, Target>(
             return ({ ...state, [name]: newValue });
         });
     }, [name, set]);
+
     return [value, setValue];
 }
 

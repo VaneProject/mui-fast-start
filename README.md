@@ -280,7 +280,7 @@ Extended props: [IconButtonProps](https://mui.com/material-ui/api/icon-button/)
 ----
 
 
-### ObjFloat
+### ObjNumber
 Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
 | Name | Type | Default | Description |

@@ -1,16 +1,18 @@
-import {Checkbox, FormControlLabel} from "@mui/material";
+import {Checkbox, CheckboxProps, FormControlLabel} from "@mui/material";
 import React, {useCallback, useContext} from "react";
-import {SingleCheckboxProps} from "../../../types";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
-import {fastDeepMerge} from "../../../utils";
+import {MfsSingleCheckboxProps} from "../../../types";
 
+export type SingleCheckboxProps = CheckboxProps & MfsSingleCheckboxProps;
 
 export const SingleCheckbox = (customProps: SingleCheckboxProps) => {
-    const defaultProps = useContext(FastStartContext)?.Single?.Checkbox;
+    const defaultProps = useContext(FastStartContext)?.Single?.MfsCheckbox;
     const {
         get, set, label,
         ...props
-    } = fastDeepMerge<SingleCheckboxProps>(defaultProps, customProps);
+    } = defaultProps == null
+        ? customProps
+        : Object.assign({...defaultProps}, customProps);
 
     const onChange = useCallback(() => set((state) => !state), [set]);
 
