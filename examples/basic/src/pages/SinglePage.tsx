@@ -2,12 +2,23 @@ import {Grid, InputAdornment, TextField} from "@mui/material";
 import {SingleCheckbox, SingleCheckIcon, SingleFloat, SingleInteger, SingleText} from "mui-fast-start";
 import React, {useState} from "react";
 
+enum TestEnum {
+    test = '테스트',
+    hello = '안녕'
+}
+
+const TestRecord = {
+    test: '테스트',
+    hello: '안녕'
+}
+
+
 const SinglePage = () => {
     const [float, setFloat] = useState<number>(0);
     const [integer, setInteger] = useState<number>(0);
     const [text, setText] = useState<string>('');
     const [checked, setChecked] = useState<boolean>(false);
-
+    const [recordSelect, setRecordSelect] = useState<keyof typeof TestRecord | undefined>();
 
     return (
         <Grid container>
@@ -62,6 +73,10 @@ const SinglePage = () => {
                     maxLength={10}
                     get={text} set={setText}
                 />
+            </Grid>
+
+            <Grid size={2}>{recordSelect?.toString()}</Grid>
+            <Grid size={2}>
             </Grid>
         </Grid>
     );

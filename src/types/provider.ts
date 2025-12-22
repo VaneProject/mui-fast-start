@@ -6,9 +6,11 @@ import {
     MfsObjectProps,
     MfsPropertyProps,
     MfsSelectListProps,
+    MfsSelectRecordProps,
     MfsTextProps
 } from './props';
 import {MfsObjectError, MfsSingleError} from "./props.internal.ts";
+import {Dispatch, SetStateAction} from "react";
 
 
 // Single
@@ -30,6 +32,10 @@ export interface MfsSingleCheckIconProps extends
 export interface MfsSingleSelectOneProps<T> extends
     MfsSelectListProps<T>,
     MfsErrorProps<T, MfsSingleError> {}
+
+export interface MfsSingleSelectRecordProps<T extends Record<PropertyKey, unknown>> extends
+    MfsSelectRecordProps<T>,
+    MfsErrorProps<keyof T, MfsSingleError> {}
 
 
 // Object

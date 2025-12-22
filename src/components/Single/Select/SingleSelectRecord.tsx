@@ -1,44 +1,39 @@
 import {FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps} from "@mui/material";
-import {MfsSingleSelectOneProps} from "../../../types";
+import {MfsSingleSelectRecordProps} from "../../../types";
 import React, {useContext, useMemo} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 
-export type SingleSelectOneProps<T> = SelectProps & MfsSingleSelectOneProps<T>;
+export type SingleSelectRecordProps<T extends Record<string, unknown>> = SelectProps & MfsSingleSelectRecordProps<T>;
 
-export const SingleSelectOne = <T,>(customProps: SingleSelectOneProps<T>) => {
-    const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectOne;
+export const SingleSelectRecord = <T extends Record<string, unknown>>(
+    customProps: SingleSelectRecordProps<T>
+) => {
+    const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectRecord;
     const {
         get, set, err, name, label,
-        items, renderMenuItem, getKey,
+        item, renderMenuItem,
         ...props
     } = defaultProps == null
         ? customProps
         : Object.assign({...defaultProps}, customProps);
 
-    const getKeyOrValue = useMemo(() => (
-        getKey ?? ((item: T) => item as string | number)
-    ), [getKey]);
-
     const onChange: SelectProps['onChange'] = (event) => {
-        const value = event.target.value;
-        if (getKey == null) {
-            set(value as T);
-        } else {
-            const item: T | undefined = items.find((item: T) => getKeyOrValue(item) === value);
-            set(item as T);
-        }
+        set(event.target.value as keyof T);
     }
 
     const MenuItems = useMemo(() => {
         if (renderMenuItem != null) {
-            return items.map(renderMenuItem);
+            return Object.entries(item).map(([key, value], i) => (
+                renderMenuItem(key, value as T[keyof T], i)
+            ));
         } else {
-            return items.map((item) => {
-                const key = getKeyOrValue(item);
-                return <MenuItem key={key} value={key}>{key}</MenuItem>;
-            })
+            return Object.entries(item).map(([key, value]) => (
+                <MenuItem key={key} value={key}>
+                    {value?.toString()}
+                </MenuItem>
+            ));
         }
-    }, [getKeyOrValue, items, renderMenuItem]);
+    }, [item, renderMenuItem]);
 
     const isError: boolean = !!err;
     const labelId: string = 'select-label-' + name;

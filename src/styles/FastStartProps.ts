@@ -6,7 +6,7 @@ import {
     MfsSingleCheckboxProps,
     MfsSingleCheckIconProps,
     MfsSingleNumberProps,
-    MfsSingleSelectOneProps,
+    MfsSingleSelectOneProps, MfsSingleSelectRecordProps,
     MfsSingleTextProps
 } from "../types";
 import type {ThemeProviderProps} from "@mui/material";
@@ -19,6 +19,7 @@ interface FastStartProps {
         MfsCheckbox: Partial<MfsSingleCheckboxProps>,
         MfsCheckIcon: Partial<MfsSingleCheckIconProps>,
         MfsSelectOne: Partial<MfsSingleSelectOneProps<unknown>>,
+        MfsSelectRecord: Partial<MfsSingleSelectRecordProps<Record<string, unknown>>>
     }>,
     Object: Partial<{
         MfsFloat: Partial<MfsObjectNumberProps<object>>,

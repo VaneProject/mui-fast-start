@@ -1,10 +1,8 @@
-import type {SlotProps, TextFieldOwnerState} from "@mui/material";
-import {Dispatch, HTMLAttributes, SetStateAction} from "react";
 import * as React from "react";
-import type {InputLabelProps} from "@mui/material/InputLabel";
+import {Dispatch, HTMLAttributes, SetStateAction} from "react";
 import {MfsObjectKeys} from "./props.internal.ts";
 
-type InputLabelType = SlotProps<React.ElementType<InputLabelProps>, {}, TextFieldOwnerState>;
+
 type KeysWithValue<Type extends object, Target> = {
     [K in keyof Type]: Type[K] extends Target ? K : never
 }[keyof Type];
@@ -24,7 +22,7 @@ export interface MfsLabelProps<Type> extends MfsPropertyProps<Type> {
 }
 
 // props : property + label + error
-export interface MfsErrorProps<Type, Error> extends MfsLabelProps<Type>{
+export interface MfsErrorProps<Type, Error> extends MfsLabelProps<Type> {
     err?: Error;
 }
 
@@ -55,13 +53,15 @@ export interface MfsCheckIconProps {
 
 export interface MfsSelectListProps<I> {
     items: I[];
-    isPrimitive?: boolean;
     renderMenuItem?: (item: I, i: number) => React.ReactNode;
+    getKey: I extends string | number
+        ? undefined | ((item: I) => string | number)
+        : (item: I) => string | number
 }
 
-export interface MfsSelectRecordProps<T extends Record<string, unknown>> {
+export interface MfsSelectRecordProps<T extends Record<PropertyKey, unknown>> {
     item: T;
-    renderMenuItem?: (key: keyof T, value: T[keyof T]) => React.ReactNode;
+    renderMenuItem?: (key: keyof T, value: T[keyof T], i: number) => React.ReactNode;
 }
 
 
@@ -87,19 +87,9 @@ interface BaseTextProps {
     endAdornment?: React.ReactNode;
 }
 
-interface BaseSelectProps<I> {
-    renderMenuItem?: (item: I) => React.ReactNode;
-}
-
-interface BaseSelectItemProps<I> extends BaseSelectProps<I> {
-    items: I[];
-}
-
 export type {
     KeysWithValue,
-    InputLabelType,
     BasePropertyProps,
     BaseObjectProps,
     BaseTextProps,
-    BaseSelectItemProps
 }
