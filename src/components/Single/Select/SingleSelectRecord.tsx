@@ -2,56 +2,55 @@ import {FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps} 
 import {MfsSingleSelectRecordProps} from "../../../types";
 import React, {useContext, useMemo} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import BaseSingleSelect from "./BaseSingleSelect.tsx";
 
-export type SingleSelectRecordProps<T extends Record<string, unknown>> = SelectProps & MfsSingleSelectRecordProps<T>;
+export type SingleSelectRecordProps<
+    T extends Record<string, unknown>,
+    Value = keyof T | undefined | null
+> = SelectProps & MfsSingleSelectRecordProps<T, Value>;
 
-export const SingleSelectRecord = <T extends Record<string, unknown>>(
-    customProps: SingleSelectRecordProps<T>
-) => {
+export const SingleSelectRecord = <
+    T extends Record<string, unknown>,
+    Value = keyof T | undefined | null
+>(customProps: SingleSelectRecordProps<T, Value>) => {
     const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectRecord;
     const {
-        get, set, err, name, label,
-        item, renderMenuItem,
+        get, set, err, label,
+        items,
+        emptyItem,
+        renderMenuItem,
         ...props
     } = defaultProps == null
         ? customProps
         : Object.assign({...defaultProps}, customProps);
 
     const onChange: SelectProps['onChange'] = (event) => {
-        set(event.target.value as keyof T);
+        set(event.target.value as Value);
     }
 
     const MenuItems = useMemo(() => {
         if (renderMenuItem != null) {
-            return Object.entries(item).map(([key, value], i) => (
+            return Object.entries(items).map(([key, value], i) => (
                 renderMenuItem(key, value as T[keyof T], i)
             ));
         } else {
-            return Object.entries(item).map(([key, value]) => (
+            return Object.entries(items).map(([key, value]) => (
                 <MenuItem key={key} value={key}>
                     {value?.toString()}
                 </MenuItem>
             ));
         }
-    }, [item, renderMenuItem]);
+    }, [items, renderMenuItem]);
 
-    const isError: boolean = !!err;
-    const labelId: string = 'select-label-' + name;
     return (
-        <FormControl>
-            {label && <InputLabel id={labelId}>{label}</InputLabel>}
-            <Select
-                name={name?.toString()}
-                labelId={labelId}
-                error={isError}
-                label={label}
-                value={get ?? ''}
-                onChange={onChange}
-                {...props}
-            >
-                {MenuItems}
-            </Select>
-            {isError && <FormHelperText>{err}</FormHelperText>}
-        </FormControl>
+        <BaseSingleSelect
+            label={label}
+            items={MenuItems}
+            emptyItem={emptyItem}
+            get={get}
+            err={err}
+            onChange={onChange}
+            selectProps={props}
+        />
     )
 }

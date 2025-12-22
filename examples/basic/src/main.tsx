@@ -3,49 +3,31 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import {createTheme, CssBaseline} from "@mui/material";
-import { FastStartProvider, createDefaultProps } from 'mui-fast-start';
+import {FastStartProvider} from "mui-fast-start";
+import {createMfsProps} from "../../../src/styles/FastStartProps.ts";
 
-const theme = createTheme();
-const defaultProps = createDefaultProps({
-    Single: {
-        Float: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'decimal',
-            type: 'text',
-            step: 0.01,
-            def: 0
+const mfsProps = createMfsProps({});
+const theme = createTheme({
+    components: {
+        MuiFormControl: {
+            defaultProps: {
+                size: 'small',
+                fullWidth: true
+            }
         },
-        Integer: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'numeric',
-            type: 'text',
-            step: 1,
-            def: 0
-        }
-    },
-    Obj: {
-        Float: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'decimal',
-            type: 'text',
-            step: 0.01,
-            def: 0
+        MuiSelect: {
+            defaultProps: {
+                size: 'small',
+                fullWidth: true
+            }
         }
     }
 });
 
+
 createRoot(document.getElementById('root')!).render(
     <FastStartProvider
-        defaultProps={defaultProps}
+        defaultProps={mfsProps}
         theme={theme}
         defaultMode='dark'
     >

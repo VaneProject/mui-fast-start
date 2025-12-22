@@ -1,7 +1,7 @@
 import {
     MfsObjectCheckboxProps,
     MfsObjectCheckIconProps,
-    MfsObjectNumberProps,
+    MfsObjectNumberProps, MfsObjectSelectOneProps, MfsObjectSelectRecordProps,
     MfsObjectTextProps,
     MfsSingleCheckboxProps,
     MfsSingleCheckIconProps,
@@ -10,6 +10,7 @@ import {
     MfsSingleTextProps
 } from "../types";
 import type {ThemeProviderProps} from "@mui/material";
+import {fastDeepMerge} from "../utils";
 
 interface FastStartProps {
     Single: Partial<{
@@ -27,10 +28,12 @@ interface FastStartProps {
         MfsText: Partial<MfsObjectTextProps<object>>,
         MfsCheckbox: Partial<MfsObjectCheckboxProps<object>>,
         MfsCheckIcon: Partial<MfsObjectCheckIconProps<object>>,
+        MfsSelectOne: Partial<MfsObjectSelectOneProps<object, unknown>>,
+        MfsSelectRecord: Partial<MfsObjectSelectRecordProps<object, Record<string, unknown>>>
     }>
 }
 
-const createMfsDefaultProps = (): FastStartProps => ({
+const mfsDefaultProps: Partial<FastStartProps> = {
     Single: {
         MfsFloat: {
             inputMode: 'decimal',
@@ -59,14 +62,18 @@ const createMfsDefaultProps = (): FastStartProps => ({
             def: 0
         }
     }
-});
+}
+
+const createMfsProps = (customProps: Partial<FastStartProps>) => {
+    return fastDeepMerge({...mfsDefaultProps}, customProps);
+}
 
 interface FastStartProviderProps<Theme> extends ThemeProviderProps<Theme> {
-    defaultProps: FastStartProps;
+    defaultProps: Partial<FastStartProps>;
 }
 
 export {
-    createMfsDefaultProps
+    createMfsProps
 }
 
 export type {

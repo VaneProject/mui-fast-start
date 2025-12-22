@@ -21,7 +21,7 @@ const floatCalculate = (
 
     if (calc != null) {
         if (max != null) calc = Math.min(max, calc);
-        if (min != null) calc = Math.min(min, calc);
+        if (min != null) calc = Math.max(min, calc);
     }
     return calc;
 }
@@ -45,7 +45,7 @@ const integerCalculate = (
 
     if (calc != null) {
         if (max != null) calc = Math.min(max, calc);
-        if (min != null) calc = Math.min(min, calc);
+        if (min != null) calc = Math.max(min, calc);
     }
     return calc;
 }

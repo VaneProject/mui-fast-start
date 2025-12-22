@@ -12,7 +12,7 @@ export default defineConfig({
       // 'mui-fast-start/styles': resolve(libRoot, 'styles/index.ts'),
       // 'mui-fast-start/hooks': resolve(libRoot, 'hooks/index.ts'),
       // 'mui-fast-start/types': resolve(libRoot, 'types/index.ts'),
-      'mui-fast-start': resolve(libRoot, 'index.ts'),
+      "mui-fast-start": resolve(libRoot, "index.ts")
       //
       // '@': libRoot,
       // '@components': resolve(libRoot, 'components'),

@@ -1,15 +1,18 @@
-import {FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps} from "@mui/material";
+import {MenuItem, SelectProps} from "@mui/material";
 import {MfsSingleSelectOneProps} from "../../../types";
 import React, {useContext, useMemo} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
+import BaseSingleSelect from "./BaseSingleSelect.tsx";
 
 export type SingleSelectOneProps<T> = SelectProps & MfsSingleSelectOneProps<T>;
 
 export const SingleSelectOne = <T,>(customProps: SingleSelectOneProps<T>) => {
     const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectOne;
     const {
-        get, set, err, name, label,
-        items, renderMenuItem, getKey,
+        get, set, err, label,
+        items, getKey,
+        renderMenuItem,
+        emptyItem,
         ...props
     } = defaultProps == null
         ? customProps
@@ -40,23 +43,15 @@ export const SingleSelectOne = <T,>(customProps: SingleSelectOneProps<T>) => {
         }
     }, [getKeyOrValue, items, renderMenuItem]);
 
-    const isError: boolean = !!err;
-    const labelId: string = 'select-label-' + name;
     return (
-        <FormControl>
-            {label && <InputLabel id={labelId}>{label}</InputLabel>}
-            <Select
-                name={name?.toString()}
-                labelId={labelId}
-                error={isError}
-                label={label}
-                value={get ?? ''}
-                onChange={onChange}
-                {...props}
-            >
-                {MenuItems}
-            </Select>
-            {isError && <FormHelperText>{err}</FormHelperText>}
-        </FormControl>
-    )
+        <BaseSingleSelect
+            label={label}
+            items={MenuItems}
+            emptyItem={emptyItem}
+            get={get}
+            err={err}
+            onChange={onChange}
+            selectProps={props}
+        />
+    );
 }

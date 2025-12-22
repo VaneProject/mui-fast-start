@@ -1,6 +1,9 @@
-import {Grid, InputAdornment, TextField} from "@mui/material";
+import {Grid, InputAdornment} from "@mui/material";
 import {SingleCheckbox, SingleCheckIcon, SingleFloat, SingleInteger, SingleText} from "mui-fast-start";
 import React, {useState} from "react";
+import {SingleSelectOne, SingleSelectRecord} from "mui-fast-start";
+
+const list = ["test1", "test2", "test3", "test4", "test5"];
 
 enum TestEnum {
     test = '테스트',
@@ -18,7 +21,12 @@ const SinglePage = () => {
     const [integer, setInteger] = useState<number>(0);
     const [text, setText] = useState<string>('');
     const [checked, setChecked] = useState<boolean>(false);
+    const [selectOne, setSelectOne] = useState<string | undefined>();
     const [recordSelect, setRecordSelect] = useState<keyof typeof TestRecord | undefined>();
+    const [recordSelect1, setRecordSelect1] = useState<keyof typeof TestRecord>('test');
+    const [enumSelect, setEnumSelect] = useState<keyof typeof TestEnum | undefined>();
+    const [enumSelect1, setEnumSelect1] = useState<keyof typeof TestEnum>('test');
+
 
     return (
         <Grid container>
@@ -75,8 +83,46 @@ const SinglePage = () => {
                 />
             </Grid>
 
+            <Grid size={2}>{selectOne?.toString()}</Grid>
+            <Grid size={2}>
+                <SingleSelectOne
+                    variant='outlined' items={list}
+                    get={selectOne} set={setSelectOne}
+                />
+            </Grid>
+
             <Grid size={2}>{recordSelect?.toString()}</Grid>
             <Grid size={2}>
+                <SingleSelectRecord
+                    variant='outlined' items={TestRecord}
+                    get={recordSelect} set={setRecordSelect}
+                />
+            </Grid>
+
+            <Grid size={2}>{recordSelect1?.toString()}</Grid>
+            <Grid size={2}>
+                <SingleSelectRecord
+                    emptyItem={'빈 값 입니다.'}
+                    variant='outlined' items={TestRecord}
+                    get={recordSelect1} set={setRecordSelect1}
+                />
+            </Grid>
+
+            <Grid size={2}>{enumSelect?.toString()}</Grid>
+            <Grid size={2}>
+                <SingleSelectRecord
+                    variant='outlined' items={TestEnum}
+                    get={enumSelect} set={setEnumSelect}
+                />
+            </Grid>
+
+            <Grid size={2}>{enumSelect1?.toString()}</Grid>
+            <Grid size={2}>
+                <SingleSelectRecord
+                    fullWidth
+                    variant='outlined' items={TestEnum}
+                    get={enumSelect1} set={setEnumSelect1}
+                />
             </Grid>
         </Grid>
     );

@@ -1,10 +1,10 @@
 import {createContext} from "react";
 import {ThemeProvider} from "@mui/material";
 import type {DefaultTheme} from "@mui/system";
-import {createMfsDefaultProps, FastStartProps, FastStartProviderProps} from "./FastStartProps.ts";
+import {createMfsProps, FastStartProps, FastStartProviderProps} from "./FastStartProps.ts";
 
 
-const FastStartContext = createContext<FastStartProps>(createMfsDefaultProps());
+const FastStartContext = createContext<Partial<FastStartProps>>(createMfsProps({}));
 
 const FastStartProvider = <T = DefaultTheme>(props: FastStartProviderProps<T>) => {
     const {

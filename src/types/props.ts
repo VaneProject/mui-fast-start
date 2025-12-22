@@ -50,18 +50,18 @@ export interface MfsCheckIconProps {
     off: React.ReactNode;
 }
 
-
-export interface MfsSelectListProps<I> {
+export type MfsSelectOneProps<I> = {
     items: I[];
     renderMenuItem?: (item: I, i: number) => React.ReactNode;
-    getKey: I extends string | number
-        ? undefined | ((item: I) => string | number)
-        : (item: I) => string | number
-}
+    emptyItem?: React.ReactNode;
+} & ([NonNullable<I>] extends [string | number]
+    ? { getKey?: (item: I) => string | number }
+    : { getKey: (item: I) => string | number });
 
-export interface MfsSelectRecordProps<T extends Record<PropertyKey, unknown>> {
-    item: T;
-    renderMenuItem?: (key: keyof T, value: T[keyof T], i: number) => React.ReactNode;
+export interface MfsSelectRecordProps<Item extends Record<PropertyKey, unknown>> {
+    items: Item;
+    renderMenuItem?: (key: keyof Item, value: Item[keyof Item], i: number) => React.ReactNode;
+    emptyItem?: React.ReactNode;
 }
 
 
@@ -69,27 +69,15 @@ interface BaseProps<Type, Error> {
     get: Type;
     set: Dispatch<SetStateAction<Type>>;
     label?: React.ReactNode;
-    errorData?: Error;
+    err?: Error;
 }
-
-type BasePropertyProps<TYPE> = BaseProps<TYPE, string>;
 
 interface BaseObjectProps<Type extends object, Target>
     extends BaseProps<Type, Partial<Type> | object> {
     name: KeysWithValue<Type, Target> | string;
 }
 
-
-interface BaseTextProps {
-    minLength?: number;
-    maxLength?: number;
-    startAdornment?: React.ReactNode;
-    endAdornment?: React.ReactNode;
-}
-
 export type {
     KeysWithValue,
-    BasePropertyProps,
     BaseObjectProps,
-    BaseTextProps,
 }

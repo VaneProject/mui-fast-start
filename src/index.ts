@@ -1,4 +1,3 @@
-export {createDefaultProps} from "./styles/createDefaultProps.ts";
 export {
     FastStartProvider,
     FastStartContext

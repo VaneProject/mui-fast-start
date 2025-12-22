@@ -5,12 +5,11 @@ import {
     MfsNumberProps,
     MfsObjectProps,
     MfsPropertyProps,
-    MfsSelectListProps,
+    MfsSelectOneProps,
     MfsSelectRecordProps,
     MfsTextProps
 } from './props';
 import {MfsObjectError, MfsSingleError} from "./props.internal.ts";
-import {Dispatch, SetStateAction} from "react";
 
 
 // Single
@@ -29,32 +28,47 @@ export interface MfsSingleCheckIconProps extends
     MfsCheckIconProps,
     MfsPropertyProps<boolean> {}
 
-export interface MfsSingleSelectOneProps<T> extends
-    MfsSelectListProps<T>,
-    MfsErrorProps<T, MfsSingleError> {}
+export type MfsSingleSelectOneProps<Item> =
+    MfsSelectOneProps<Item>
+    & MfsErrorProps<Item, MfsSingleError>;
 
-export interface MfsSingleSelectRecordProps<T extends Record<PropertyKey, unknown>> extends
-    MfsSelectRecordProps<T>,
-    MfsErrorProps<keyof T, MfsSingleError> {}
+export interface MfsSingleSelectRecordProps<
+    Item extends Record<PropertyKey, unknown>,
+    Value = keyof Item | undefined | null
+> extends
+    MfsSelectRecordProps<Item>,
+    MfsErrorProps<Value, MfsSingleError> {}
 
 
 // Object
 export interface MfsObjectNumberProps<T extends object> extends
-    MfsNumberProps,
     MfsObjectProps<T, number>,
+    MfsNumberProps,
     MfsErrorProps<T, MfsObjectError<T, number>> {}
 
 export interface MfsObjectTextProps<T extends object> extends
-    MfsTextProps,
     MfsObjectProps<T, string>,
+    MfsTextProps,
     MfsErrorProps<T, MfsObjectError<T, string>> {}
 
 export interface MfsObjectCheckboxProps<T extends object> extends
-    MfsLabelProps<T>,
-    MfsObjectProps<T, boolean> {}
+    MfsObjectProps<T, boolean>,
+    MfsLabelProps<T> {}
 
 export interface MfsObjectCheckIconProps<T extends object> extends
+    MfsObjectProps<T, boolean>,
     MfsPropertyProps<T>,
-    MfsCheckIconProps,
-    MfsObjectProps<T, boolean> {}
+    MfsCheckIconProps {}
 
+export type MfsObjectSelectOneProps<T extends object, Item> =
+    MfsObjectProps<T, Item>
+    & MfsSelectOneProps<Item>
+    & MfsErrorProps<T, MfsObjectError<T, Item>>;
+
+export interface MfsObjectSelectRecordProps<
+    T extends object,
+    Item extends Record<PropertyKey, unknown>
+> extends
+    MfsObjectProps<T, Item>,
+    MfsSelectRecordProps<Item>,
+    MfsErrorProps<T, MfsObjectError<T, Item>> {}

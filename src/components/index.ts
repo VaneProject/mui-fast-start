@@ -11,3 +11,4 @@ export { ObjCheckbox } from './Object/Checkbox/ObjCheckbox.tsx';
 export { ObjCheckIcon } from './Object/Checkbox/ObjCheckIcon.tsx';
 export { ObjFloat, ObjInteger } from './Object/Textfield/ObjNumber.tsx';
 export { ObjText } from './Object/Textfield/ObjText.tsx';
+export {  } from './Object/Select/ObjSelectOne.tsx';
