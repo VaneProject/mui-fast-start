@@ -79,7 +79,7 @@ const ObjPage = () => {
             </Grid>
             <Grid size={2}>
                 <ObjCheckIcon<TempType>
-                    on='on' off='off' name='check2'
+                    on='on' off='off' name={"check2"}
                     get={temp} set={setTemp}
                 />
             </Grid>
