@@ -9,7 +9,7 @@ export type KeysWithValue<Type extends object, Target = unknown> = {
 }[keyof Type];
 
 export type MfsObjectKeys<Type extends object, Target = unknown> =
-    KeysWithValue<Type, Target>;
+    keyof Type | KeysWithValue<Type, Target>;
 
 export type MfsSelectEmpty<I> = {
     emptyItem?: React.ReactNode;
