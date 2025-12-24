@@ -49,35 +49,21 @@ import { createDefaultProps } from 'mui-fast-start/styles';
 import { FastStartProvider } from 'mui-fast-start';
 
 const theme = createTheme();
-const defaultProps = createDefaultProps({
+const mfsProps = createMfsProps({
     Single: {
-        Integer: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'numeric',
-            type: 'text',
-            step: 1,
-            def: 0
+        MfsText: {
+            maxLength: 255
         }
     },
-    Obj: {
-        Float: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'decimal',
-            type: 'text',
-            step: 0.01,
-            def: 0
+    Object: {
+        MfsText: {
+            maxLength: 255
         }
     }
 });
 
 <FastStartProvider
-    defaultProps={defaultProps}
+    defaultProps={mfsProps}
     theme={theme}
     defaultMode='dark'
 >
@@ -209,147 +195,210 @@ const [temp, setTemp] = useState<TempType>({
 ### SingleFloat
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | number | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<number>> | (필수값) | useState의 2번째 값 |
-| label | React.ReactNode | - | 라벨 내용 |
-| errorData | string | - | 에러 메시지 |
-| minLength | number | - | 입력할 수 있는 최소 길이 |
-| maxLength | number | - | 입력할 수 있는 최대 길이 |
-| startAdornment | React.ReactNode | - | 시작 InputAdornment 형식 |
-| endAdornment | React.ReactNode | - | 종료 InputAdornment 형식 |
-| def | number | 0 | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
-| min | number | - | 입력할 수 있는 최소값 |
-| max | number | - | 입력할 수 있는 최대값 |
-| step | number | 0.01 | 스탭으로 올렸을때 증가하는 크기 |
+|       이름       |                타입                |  기본값  |                  설명                   |
+|:--------------:|:--------------------------------:|:-----:|:-------------------------------------:|
+|      get       |              number              | (필수값) |            useState의 1번째 값            |
+|      set       | Dispatch<SetStateAction<number>> | (필수값) |            useState의 2번째 값            |
+|     label      |         React.ReactNode          |   -   |                 라벨 내용                 |
+|      err       |              string              |   -   |                에러 메시지                 |
+|   minLength    |              number              |   -   |            입력할 수 있는 최소 길이             |
+|   maxLength    |              number              |   -   |            입력할 수 있는 최대 길이             |
+| startAdornment |         React.ReactNode          |   -   |         시작 InputAdornment 형식          |
+|  endAdornment  |         React.ReactNode          |   -   |         종료 InputAdornment 형식          |
+|      def       |              number              |   0   | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
+|      min       |              number              |   -   |             입력할 수 있는 최소값              |
+|      max       |              number              |   -   |             입력할 수 있는 최대값              |
+|      step      |              number              | 0.01  |           스탭으로 올렸을때 증가하는 크기           |
 
 ### SingleInteger
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | number | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<number>> | (필수값) | useState의 2번째 값 |
-| label | React.ReactNode | - | 라벨 내용 |
-| errorData | string | - | 에러 메시지 |
-| minLength | number | - | 입력할 수 있는 최소 길이 |
-| maxLength | number | - | 입력할 수 있는 최대 길이 |
-| startAdornment | React.ReactNode | - | 시작 InputAdornment 형식 |
-| endAdornment | React.ReactNode | - | 종료 InputAdornment 형식 |
-| def | number | 0 | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
-| min | number | - | 입력할 수 있는 최소값 |
-| max | number | - | 입력할 수 있는 최대값 |
-| step | number | 1 | 스탭으로 올렸을때 증가하는 크기 |
+|       이름       |                타입                |  기본값  |                  설명                   |
+|:--------------:|:--------------------------------:|:-----:|:-------------------------------------:|
+|      get       |              number              | (필수값) |            useState의 1번째 값            |
+|      set       | Dispatch<SetStateAction<number>> | (필수값) |            useState의 2번째 값            |
+|     label      |         React.ReactNode          |   -   |                 라벨 내용                 |
+|      err       |              string              |   -   |                에러 메시지                 |
+|   minLength    |              number              |   -   |            입력할 수 있는 최소 길이             |
+|   maxLength    |              number              |   -   |            입력할 수 있는 최대 길이             |
+| startAdornment |         React.ReactNode          |   -   |         시작 InputAdornment 형식          |
+|  endAdornment  |         React.ReactNode          |   -   |         종료 InputAdornment 형식          |
+|      def       |              number              |   0   | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
+|      min       |              number              |   -   |             입력할 수 있는 최소값              |
+|      max       |              number              |   -   |             입력할 수 있는 최대값              |
+|      step      |              number              |   1   |           스탭으로 올렸을때 증가하는 크기           |
 
 
 ### SingleText
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | string | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<string>> | (필수값) | useState의 2번째 값 |
-| label | React.ReactNode | - | 라벨 내용 |
-| errorData | string | - | 에러 메시지 |
-| minLength | number | - | 입력할 수 있는 최소 길이 |
-| maxLength | number | - | 입력할 수 있는 최대 길이 |
-| startAdornment | React.ReactNode | - | 시작 InputAdornment 형식 |
-| endAdornment | React.ReactNode | - | 종료 InputAdornment 형식 |
+|       이름       |                타입                |  기본값  |          설명          |
+|:--------------:|:--------------------------------:|:-----:|:--------------------:|
+|      get       |              string              | (필수값) |   useState의 1번째 값    |
+|      set       | Dispatch<SetStateAction<string>> | (필수값) |   useState의 2번째 값    |
+|     label      |         React.ReactNode          |   -   |        라벨 내용         |
+|      err       |              string              |   -   |        에러 메시지        |
+|   minLength    |              number              |   -   |    입력할 수 있는 최소 길이    |
+|   maxLength    |              number              |   -   |    입력할 수 있는 최대 길이    |
+| startAdornment |         React.ReactNode          |   -   | 시작 InputAdornment 형식 |
+|  endAdornment  |         React.ReactNode          |   -   | 종료 InputAdornment 형식 |
 
 ### SingleCheckbox
 확장 props: [CheckboxProps](https://mui.com/material-ui/api/checkbox/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | boolean | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<boolean>> | (필수값) | useState의 2번째 값 |
-| label | React.ReactNode | - | 라벨 내용 |
+|  이름   |                타입                 |  기본값  |       설명        |
+|:-----:|:---------------------------------:|:-----:|:---------------:|
+|  get  |              boolean              | (필수값) | useState의 1번째 값 |
+|  set  | Dispatch<SetStateAction<boolean>> | (필수값) | useState의 2번째 값 |
+| label |          React.ReactNode          |   -   |      라벨 내용      |
 
 ### SingleCheckIcon
 확장 props: [IconButtonProps](https://mui.com/material-ui/api/icon-button/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | boolean | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<boolean>> | (필수값) | useState의 2번째 값 |
-| on | React.ReactNode | (필수값) | true일때 표시되는 node |
-| off | React.ReactNode | (필수값) | false일때 표시되는 node |
+| 이름  |                타입                 |  기본값  |        설명         |
+|:---:|:---------------------------------:|:-----:|:-----------------:|
+| get |              boolean              | (필수값) |  useState의 1번째 값  |
+| set | Dispatch<SetStateAction<boolean>> | (필수값) |  useState의 2번째 값  |
+| on  |          React.ReactNode          | (필수값) | true일때 표시되는 node  |
+| off |          React.ReactNode          | (필수값) | false일때 표시되는 node |
 
 
+### SingleSelectOne
+확장 props: [SingleSelectOne](https://mui.com/material-ui/api/select/)
+
+|       이름       |               타입               |            기본값             |             설명              |
+|:--------------:|:------------------------------:|:--------------------------:|:---------------------------:|
+|      get       |              any               |           (필수값)            |       useState의 1번째 값       |
+|      set       | Dispatch<SetStateAction<any>>  |           (필수값)            |       useState의 2번째 값       |
+|     label      |        React.ReactNode         |             -              |            라벨 내용            |
+|      err       |             string             |             -              |           에러 메시지            |
+|   emptyItem    |        React.ReactNode         |             -              | 빈 값 허용 및 비어있는 아이템을 표시할 node |
+|   emptyValue   |  '' / null / undefined / any   |             -              |      빈 값을 선택했을때 삽입되는 값      |
+|     items      |             any[]              |           (필수값)            |        선택할 수 있는 아이템들        |
+| renderMenuItem | (item: any) => React.ReactNode |             -              |        아이템을 렌더링하는 함수        |
+|     getKey     |     (item: any) => string      | string, number 가 아닐 경우 필수값 |     아이템을 고유한 키로 반환하는 함수     |
+
+
+### SingleSelectRecord
+확장 props: [SingleSelectOne](https://mui.com/material-ui/api/select/)
+
+|       이름       |               타입               |            기본값             |             설명              |
+|:--------------:|:------------------------------:|:--------------------------:|:---------------------------:|
+|      get       |              any               |           (필수값)            |       useState의 1번째 값       |
+|      set       | Dispatch<SetStateAction<any>>  |           (필수값)            |       useState의 2번째 값       |
+|     label      |        React.ReactNode         |             -              |            라벨 내용            |
+|      err       |             string             |             -              |           에러 메시지            |
+|   emptyItem    |        React.ReactNode         |             -              | 빈 값 허용 및 비어있는 아이템을 표시할 node |
+|   emptyValue   |  '' / null / undefined / any   |             -              |      빈 값을 선택했을때 삽입되는 값      |
+|     items      |             any[]              |           (필수값)            |        선택할 수 있는 아이템들        |
+| renderMenuItem | (item: any) => React.ReactNode |             -              |        아이템을 렌더링하는 함수        |
+|     getKey     |     (item: any) => string      | string, number 가 아닐 경우 필수값 |     아이템을 고유한 키로 반환하는 함수     |
+ 
 ----
 
 
 ### ObjNumber
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | object | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<object>> | (필수값) | useState의 2번째 값 |
-| name | string | (필수값) | object의 키 값 |
-| label | React.ReactNode | - | 라벨 내용 |
-| errorData | object | - | 에러 메시지 |
-| minLength | number | - | 입력할 수 있는 최소 길이 |
-| maxLength | number | - | 입력할 수 있는 최대 길이 |
-| startAdornment | React.ReactNode | - | 시작 InputAdornment 형식 |
-| endAdornment | React.ReactNode | - | 종료 InputAdornment 형식 |
-| def | number | 0 | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
-| min | number | - | 입력할 수 있는 최소값 |
-| max | number | - | 입력할 수 있는 최대값 |
-| step | number | 0.01 | 스탭으로 올렸을때 증가하는 크기 |
+|       이름       |                타입                |  기본값  |                  설명                   |
+|:--------------:|:--------------------------------:|:-----:|:-------------------------------------:|
+|      get       |              object              | (필수값) |            useState의 1번째 값            |
+|      set       | Dispatch<SetStateAction<object>> | (필수값) |            useState의 2번째 값            |
+|      name      |              string              | (필수값) |              object의 키 값              |
+|     label      |         React.ReactNode          |   -   |                 라벨 내용                 |
+|      err       |              object              |   -   |                에러 메시지                 |
+|   minLength    |              number              |   -   |            입력할 수 있는 최소 길이             |
+|   maxLength    |              number              |   -   |            입력할 수 있는 최대 길이             |
+| startAdornment |         React.ReactNode          |   -   |         시작 InputAdornment 형식          |
+|  endAdornment  |         React.ReactNode          |   -   |         종료 InputAdornment 형식          |
+|      def       |              number              |   0   | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
+|      min       |              number              |   -   |             입력할 수 있는 최소값              |
+|      max       |              number              |   -   |             입력할 수 있는 최대값              |
+|      step      |              number              | 0.01  |           스탭으로 올렸을때 증가하는 크기           |
 
 ### ObjInteger
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | object | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<object>> | (필수값) | useState의 2번째 값 |
-| name | string | (필수값) | object의 키 값 |
-| label | React.ReactNode | - | 라벨 내용 |
-| errorData | object | - | 에러 메시지 |
-| minLength | number | - | 입력할 수 있는 최소 길이 |
-| maxLength | number | - | 입력할 수 있는 최대 길이 |
-| startAdornment | React.ReactNode | - | 시작 InputAdornment 형식 |
-| endAdornment | React.ReactNode | - | 종료 InputAdornment 형식 |
-| def | number | 0 | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
-| min | number | - | 입력할 수 있는 최소값 |
-| max | number | - | 입력할 수 있는 최대값 |
-| step | number | 1 | 스탭으로 올렸을때 증가하는 크기 |
+|       이름       |                타입                |  기본값  |                  설명                   |
+|:--------------:|:--------------------------------:|:-----:|:-------------------------------------:|
+|      get       |              object              | (필수값) |            useState의 1번째 값            |
+|      set       | Dispatch<SetStateAction<object>> | (필수값) |            useState의 2번째 값            |
+|      name      |              string              | (필수값) |              object의 키 값              |
+|     label      |         React.ReactNode          |   -   |                 라벨 내용                 |
+|      err       |              object              |   -   |                에러 메시지                 |
+|   minLength    |              number              |   -   |            입력할 수 있는 최소 길이             |
+|   maxLength    |              number              |   -   |            입력할 수 있는 최대 길이             |
+| startAdornment |         React.ReactNode          |   -   |         시작 InputAdornment 형식          |
+|  endAdornment  |         React.ReactNode          |   -   |         종료 InputAdornment 형식          |
+|      def       |              number              |   0   | 입력된 숫자형식이 잘못되거나 했을때 들어가는 기본으로 들어가지는 값 |
+|      min       |              number              |   -   |             입력할 수 있는 최소값              |
+|      max       |              number              |   -   |             입력할 수 있는 최대값              |
+|      step      |              number              |   1   |           스탭으로 올렸을때 증가하는 크기           |
 
 ### ObjText
 확장 props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | object | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<object>> | (필수값) | useState의 2번째 값 |
-| name | string | (필수값) | object의 키 값 |
-| label | React.ReactNode | - | 라벨 내용 |
-| errorData | object | - | 에러 메시지 |
-| minLength | number | - | 입력할 수 있는 최소 길이 |
-| maxLength | number | - | 입력할 수 있는 최대 길이 |
-| startAdornment | React.ReactNode | - | 시작 InputAdornment 형식 |
-| endAdornment | React.ReactNode | - | 종료 InputAdornment 형식 |
+|       이름       |                타입                |  기본값  |          설명          |
+|:--------------:|:--------------------------------:|:-----:|:--------------------:|
+|      get       |              object              | (필수값) |   useState의 1번째 값    |
+|      set       | Dispatch<SetStateAction<object>> | (필수값) |   useState의 2번째 값    |
+|      name      |              string              | (필수값) |     object의 키 값      |
+|     label      |         React.ReactNode          |   -   |        라벨 내용         |
+|      err       |              object              |   -   |        에러 메시지        |
+|   minLength    |              number              |   -   |    입력할 수 있는 최소 길이    |
+|   maxLength    |              number              |   -   |    입력할 수 있는 최대 길이    |
+| startAdornment |         React.ReactNode          |   -   | 시작 InputAdornment 형식 |
+|  endAdornment  |         React.ReactNode          |   -   | 종료 InputAdornment 형식 |
 
 ### SingleCheckbox
 확장 props: [CheckboxProps](https://mui.com/material-ui/api/checkbox/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | object | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<object>> | (필수값) | useState의 2번째 값 |
-| name | string | (필수값) | object의 키 값 |
-| label | React.ReactNode | - | 라벨 내용 |
+|  이름   |                타입                |  기본값  |       설명        |
+|:-----:|:--------------------------------:|:-----:|:---------------:|
+|  get  |              object              | (필수값) | useState의 1번째 값 |
+|  set  | Dispatch<SetStateAction<object>> | (필수값) | useState의 2번째 값 |
+| name  |              string              | (필수값) |   object의 키 값   |
+| label |         React.ReactNode          |   -   |      라벨 내용      |
 
 ### SingleCheckIcon
 확장 props: [IconButtonProps](https://mui.com/material-ui/api/icon-button/)
 
-| 이름 | 타입 | 기본값 | 설명 |
-|:-:|:-:|:-:|:-:|
-| get | object | (필수값) | useState의 1번째 값 |
-| set | Dispatch<SetStateAction<object>> | (필수값) | useState의 2번째 값 |
-| name | string | (필수값) | object의 키 값 |
-| on | React.ReactNode | (필수값) | true일때 표시되는 node |
-| off | React.ReactNode | (필수값) | false일때 표시되는 node |
+|  이름  |                타입                |  기본값  |        설명         |
+|:----:|:--------------------------------:|:-----:|:-----------------:|
+| get  |              object              | (필수값) |  useState의 1번째 값  |
+| set  | Dispatch<SetStateAction<object>> | (필수값) |  useState의 2번째 값  |
+| name |              string              | (필수값) |    object의 키 값    |
+|  on  |         React.ReactNode          | (필수값) | true일때 표시되는 node  |
+| off  |         React.ReactNode          | (필수값) | false일때 표시되는 node |
+
+### ObjSelectOne
+확장 props: [ObjSelectOne](https://mui.com/material-ui/api/select/)
+
+|       이름       |                타입                |            기본값             |             설명              |
+|:--------------:|:--------------------------------:|:--------------------------:|:---------------------------:|
+|      get       |              object              |           (필수값)            |       useState의 1번째 값       |
+|      set       | Dispatch<SetStateAction<object>> |           (필수값)            |       useState의 2번째 값       |
+|      name      |              string              |           (필수값)            |         object의 키 값         |
+|     label      |         React.ReactNode          |             -              |            라벨 내용            |
+|      err       |              object              |             -              |           에러 메시지            |
+|   emptyItem    |         React.ReactNode          |             -              | 빈 값 허용 및 비어있는 아이템을 표시할 node |
+|   emptyValue   |   '' / null / undefined / any    |             -              |      빈 값을 선택했을때 삽입되는 값      |
+|     items      |              any[]               |           (필수값)            |        선택할 수 있는 아이템들        |
+| renderMenuItem |  (item: any) => React.ReactNode  |             -              |        아이템을 렌더링하는 함수        |
+|     getKey     |      (item: any) => string       | string, number 가 아닐 경우 필수값 |     아이템을 고유한 키로 반환하는 함수     |
+
+### SingleSelectRecord
+확장 props: [SingleSelectOne](https://mui.com/material-ui/api/select/)
+
+|       이름       |                타입                |            기본값             |             설명              |
+|:--------------:|:--------------------------------:|:--------------------------:|:---------------------------:|
+|      get       |              object              |           (필수값)            |       useState의 1번째 값       |
+|      set       | Dispatch<SetStateAction<object>> |           (필수값)            |       useState의 2번째 값       |
+|      name      |              string              |           (필수값)            |         object의 키 값         |
+|     label      |         React.ReactNode          |             -              |            라벨 내용            |
+|      err       |              object              |             -              |           에러 메시지            |
+|   emptyItem    |         React.ReactNode          |             -              | 빈 값 허용 및 비어있는 아이템을 표시할 node |
+|   emptyValue   |   '' / null / undefined / any    |             -              |      빈 값을 선택했을때 삽입되는 값      |
+|     items      |              any[]               |           (필수값)            |        선택할 수 있는 아이템들        |
+| renderMenuItem |  (item: any) => React.ReactNode  |             -              |        아이템을 렌더링하는 함수        |
+|     getKey     |      (item: any) => string       | string, number 가 아닐 경우 필수값 |     아이템을 고유한 키로 반환하는 함수     |

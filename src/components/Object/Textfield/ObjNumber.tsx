@@ -6,7 +6,7 @@ import {SingleFloat, SingleInteger} from "../../Single/TextField/SingleNumber.ts
 import {MfsObjectNumberProps} from "../../../types";
 import {TextFieldProps} from "@mui/material";
 
-export type ObjNumberProps<T extends object> = Omit<TextFieldProps, 'name'> & MfsObjectNumberProps<T>;
+type ObjNumberProps<T extends object> = Omit<TextFieldProps, 'name'> & MfsObjectNumberProps<T>;
 
 export const ObjFloat = <T extends object>(customProps: ObjNumberProps<T>) => {
     const defaultProps = useContext(FastStartContext)?.Object?.MfsFloat;

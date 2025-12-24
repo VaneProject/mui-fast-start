@@ -5,9 +5,10 @@ import {CheckboxProps} from "@mui/material";
 import {MfsObjectCheckboxProps} from "../../../types";
 import useObjToSingle from "../../../hooks/state/useObjToSingle.ts";
 
-export type ObjCheckboxProps<T extends object> = Omit<CheckboxProps, 'name'> & MfsObjectCheckboxProps<T>;
 
-export const ObjCheckbox = <T extends object>(customProps: ObjCheckboxProps<T>) => {
+export const ObjCheckbox = <T extends object>(
+    customProps: Omit<CheckboxProps, 'name'> & MfsObjectCheckboxProps<T>
+) => {
     const defaultProps = useContext(FastStartContext)?.Object?.MfsCheckbox;
     const {
         get, set, label, name, 

@@ -4,31 +4,30 @@ import React, {useContext, useMemo} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 import BaseSingleSelect from "./BaseSingleSelect.tsx";
 
-export type SingleSelectOneProps<T> = SelectProps & MfsSingleSelectOneProps<T>;
+export type SingleSelectOneProps<Item> = SelectProps & MfsSingleSelectOneProps<Item>;
 
-export const SingleSelectOne = <T,>(customProps: SingleSelectOneProps<T>) => {
+export const SingleSelectOne = <Item,>(customProps: SingleSelectOneProps<Item>) => {
     const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectOne;
     const {
         get, set, err, label,
-        items, getKey,
-        renderMenuItem,
-        emptyItem,
-        ...props
+        items, renderMenuItem,
+        emptyItem, emptyValue,
+        getKey, ...props
     } = defaultProps == null
         ? customProps
         : Object.assign({...defaultProps}, customProps);
 
     const getKeyOrValue = useMemo(() => (
-        getKey ?? ((item: T) => item as string | number)
+        getKey ?? ((item: Item) => item as string | number)
     ), [getKey]);
 
     const onChange: SelectProps['onChange'] = (event) => {
         const value = event.target.value;
         if (getKey == null) {
-            set(value as T);
+            set((value == "" ? emptyValue : value) as Item);
         } else {
-            const item: T | undefined = items.find((item: T) => getKeyOrValue(item) === value);
-            set(item as T);
+            const item: Item | undefined = items.find((item: Item) => getKeyOrValue(item) === value);
+            set(item as Item);
         }
     }
 

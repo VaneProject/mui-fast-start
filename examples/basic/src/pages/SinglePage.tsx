@@ -1,10 +1,12 @@
-import {Grid, InputAdornment} from "@mui/material";
+import {useState} from "react";
+import {Divider, Grid, InputAdornment} from "@mui/material";
 import {SingleCheckbox, SingleCheckIcon, SingleFloat, SingleInteger, SingleText} from "mui-fast-start";
-import React, {useState} from "react";
 import {SingleSelectOne, SingleSelectRecord} from "mui-fast-start";
 
 const list = ["test1", "test2", "test3", "test4", "test5"];
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 enum TestEnum {
     test = '테스트',
     hello = '안녕'
@@ -81,6 +83,10 @@ const SinglePage = () => {
                     maxLength={10}
                     get={text} set={setText}
                 />
+            </Grid>
+
+            <Grid size={12}>
+                <Divider/>
             </Grid>
 
             <Grid size={2}>{selectOne?.toString()}</Grid>

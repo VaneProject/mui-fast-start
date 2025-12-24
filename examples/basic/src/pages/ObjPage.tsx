@@ -1,13 +1,36 @@
-import { Grid, InputAdornment, TextField } from "@mui/material";
-import { ObjCheckbox, ObjCheckIcon, ObjFloat, ObjInteger, ObjText } from "mui-fast-start";
+import {Divider, Grid, InputAdornment, TextField} from "@mui/material";
+import {ObjCheckbox, ObjCheckIcon, ObjFloat, ObjInteger, ObjSelectOne, ObjSelectRecord, ObjText} from "mui-fast-start";
 import React, { useState } from "react";
+
+const list = ["test1", "test2", "test3", "test4", "test5"];
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+enum TestEnum {
+    test = '테스트',
+    hello = '안녕'
+}
+
+const TestRecord = {
+    test: '테스트',
+    hello: '안녕'
+}
 
 type TempType = {
     check1: boolean,
     check2: boolean,
     float: number,
     integer: number,
-    text: string
+    text: string,
+}
+
+type SelectType = {
+    item1: keyof typeof TestRecord;
+    item2?: keyof typeof TestRecord;
+    item3: keyof typeof TestEnum;
+    item4?: keyof typeof TestEnum;
+    item5: string;
+    item6?: string;
 }
 
 const ObjPage = () => {
@@ -20,6 +43,12 @@ const ObjPage = () => {
         float: 0,
         integer: 0,
         text: ''
+    });
+
+    const [select, setSelect] = useState<SelectType>({
+        item1: 'test',
+        item3: 'test',
+        item5: list[0],
     });
 
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,9 +116,58 @@ const ObjPage = () => {
                 />
             </Grid>
 
-            <Grid size={12}></Grid>
+            <Grid size={12}>
+                <Divider/>
+                {JSON.stringify(select)}
+            </Grid>
+
             <Grid size={2}>
-                <ObjSelect
+                <ObjSelectRecord
+                    get={select} set={setSelect}
+                    items={TestRecord}
+                    name='item1' label='item1'
+                />
+            </Grid>
+            <Grid size={2}>
+                <ObjSelectRecord
+                    get={select} set={setSelect}
+                    items={TestRecord}
+                    name='item2' label='item2'
+                />
+            </Grid>
+
+            <Grid size={2}>
+                <ObjSelectRecord
+                    get={select} set={setSelect}
+                    items={TestEnum}
+                    emptyItem='빈 값' emptyValue={null}
+                    name='item3' label='item3'
+                />
+            </Grid>
+            <Grid size={2}>
+                <ObjSelectRecord
+                    get={select} set={setSelect}
+                    items={TestEnum}
+                    emptyItem='빈 값' emptyValue={null}
+                    name='item4' label='item4'
+                />
+            </Grid>
+
+            <Grid size={2}>
+                <ObjSelectOne
+                    emptyItem='미선택'
+                    label='item5'
+                    get={select} set={setSelect}
+                    items={list} name='item5'
+                />
+            </Grid>
+            <Grid size={2}>
+                <ObjSelectOne
+                    emptyItem='미선택'
+                    label='item6'
+                    get={select} set={setSelect}
+                    items={list} name='item6'
+                />
             </Grid>
         </Grid>
     );

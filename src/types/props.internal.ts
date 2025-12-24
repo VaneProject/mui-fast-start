@@ -11,6 +11,11 @@ export type KeysWithValue<Type extends object, Target = unknown> = {
 export type MfsObjectKeys<Type extends object, Target = unknown> =
     KeysWithValue<Type, Target> | string;
 
+export type MfsSelectEmpty<I> = {
+    emptyItem?: React.ReactNode;
+    emptyValue?: '' | null | undefined | I;
+}
+
 export type MfsSingleError = React.ReactNode;
 export type MfsObjectError<Type extends object, Target = unknown> =
     Partial<Record<MfsObjectKeys<Type, Target>, React.ReactNode>>;

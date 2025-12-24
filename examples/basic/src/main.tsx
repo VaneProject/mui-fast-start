@@ -6,7 +6,18 @@ import {createTheme, CssBaseline} from "@mui/material";
 import {FastStartProvider} from "mui-fast-start";
 import {createMfsProps} from "../../../src/styles/FastStartProps.ts";
 
-const mfsProps = createMfsProps({});
+const mfsProps = createMfsProps({
+    Single: {
+        MfsText: {
+            maxLength: 255
+        }
+    },
+    Object: {
+        MfsText: {
+            maxLength: 255
+        }
+    }
+});
 const theme = createTheme({
     components: {
         MuiFormControl: {

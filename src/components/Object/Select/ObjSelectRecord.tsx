@@ -1,17 +1,17 @@
 import {useContext} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
-import {SingleSelectOne} from "../../Single/Select/SingleSelectOne.tsx";
-import {SelectProps} from "@mui/material";
-import {MfsObjectSelectOneProps} from "../../../types";
 import useObjToSingle from "../../../hooks/state/useObjToSingle.ts";
+import {SingleSelectRecord} from "../../Single/Select/SingleSelectRecord.tsx";
+import {MfsObjectSelectRecordProps} from "../../../types";
+import {SelectProps} from "@mui/material";
 import {errorObjectToString} from "../../../utils/object/error.ts";
 
 
-export const ObjSelectOne = <
+export const ObjSelectRecord = <
     T extends object,
-    Item
->(customProps: Omit<SelectProps, 'name'> & MfsObjectSelectOneProps<T, Item>) => {
-    const defaultProps = useContext(FastStartContext)?.Object?.MfsSelectOne;
+    Item extends Record<PropertyKey, unknown>
+>(customProps: Omit<SelectProps, 'name'> & MfsObjectSelectRecordProps<T, Item>) => {
+    const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectRecord;
     const {
         get, set, err, name,
         variant,
@@ -23,7 +23,7 @@ export const ObjSelectOne = <
     const [value, setValue] = useObjToSingle<T, Item>(name, get, set);
 
     return (
-        <SingleSelectOne<Item>
+        <SingleSelectRecord
             get={value} set={setValue}
             name={name?.toString()}
             err={errorObjectToString(name, err)}

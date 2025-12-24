@@ -5,9 +5,10 @@ import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 import {IconButtonProps} from "@mui/material";
 import {MfsObjectCheckIconProps} from "../../../types";
 
-export type ObjCheckIconProps<T extends object> = Omit<IconButtonProps, 'name'> & MfsObjectCheckIconProps<T>;
 
-export const ObjCheckIcon = <T extends object>(customProps: ObjCheckIconProps<T>) => {
+export const ObjCheckIcon = <T extends object>(
+    customProps: Omit<IconButtonProps, 'name'> & MfsObjectCheckIconProps<T>
+) => {
     const defaultProps = useContext(FastStartContext)?.Object?.MfsCheckIcon;
     const {
         get, set, name,

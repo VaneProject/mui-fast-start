@@ -45,39 +45,25 @@ This component has MUI's ThemeProvider built-in, so be careful not to use ThemeP
 Example:
 ```tsx
 import {createTheme, CssBaseline} from "@mui/material";
-import { createDefaultProps } from 'mui-fast-start/styles';
+import { createMfsProps } from 'mui-fast-start/styles';
 import { FastStartProvider } from 'mui-fast-start';
 
 const theme = createTheme();
-const defaultProps = createDefaultProps({
+const mfsProps = createMfsProps({
     Single: {
-        Integer: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'numeric',
-            type: 'text',
-            step: 1,
-            def: 0
+        MfsText: {
+            maxLength: 255
         }
     },
-    Obj: {
-        Float: {
-            variant: 'filled',
-            size: 'medium',
-            fullWidth: false,
-            autoComplete: 'off',
-            inputMode: 'decimal',
-            type: 'text',
-            step: 0.01,
-            def: 0
+    Object: {
+        MfsText: {
+            maxLength: 255
         }
     }
 });
 
 <FastStartProvider
-    defaultProps={defaultProps}
+    defaultProps={mfsProps}
     theme={theme}
     defaultMode='dark'
 >
@@ -214,7 +200,7 @@ Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 | get | number | (required) | First value of useState |
 | set | Dispatch<SetStateAction<number>> | (required) | Second value of useState |
 | label | React.ReactNode | - | Label content |
-| errorData | string | - | Error message |
+| err | string | - | Error message |
 | minLength | number | - | Minimum input length |
 | maxLength | number | - | Maximum input length |
 | startAdornment | React.ReactNode | - | Start InputAdornment |
@@ -232,7 +218,7 @@ Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 | get | number | (required) | First value of useState |
 | set | Dispatch<SetStateAction<number>> | (required) | Second value of useState |
 | label | React.ReactNode | - | Label content |
-| errorData | string | - | Error message |
+| err | string | - | Error message |
 | minLength | number | - | Minimum input length |
 | maxLength | number | - | Maximum input length |
 | startAdornment | React.ReactNode | - | Start InputAdornment |
@@ -251,7 +237,7 @@ Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 | get | string | (required) | First value of useState |
 | set | Dispatch<SetStateAction<string>> | (required) | Second value of useState |
 | label | React.ReactNode | - | Label content |
-| errorData | string | - | Error message |
+| err | string | - | Error message |
 | minLength | number | - | Minimum input length |
 | maxLength | number | - | Maximum input length |
 | startAdornment | React.ReactNode | - | Start InputAdornment |
@@ -276,6 +262,35 @@ Extended props: [IconButtonProps](https://mui.com/material-ui/api/icon-button/)
 | on | React.ReactNode | (required) | Node displayed when true |
 | off | React.ReactNode | (required) | Node displayed when false |
 
+### SingleSelectOne
+Extended props: [SingleSelectOne](https://mui.com/material-ui/api/select/)
+
+| Name | Type | Default | Description |
+|:-:|:-:|:-:|:-:|
+| get | any | (required) | First value of useState |
+| set | Dispatch<SetStateAction<any>> | (required) | Second value of useState |
+| label | React.ReactNode | - | Label content |
+| err | string | - | Error message |
+| emptyItem | React.ReactNode | - | Node to display for empty item (allows empty value) |
+| emptyValue | '' / null / undefined / any | - | Value inserted when empty item is selected |
+| items | any[] | (required) | Selectable items |
+| renderMenuItem | (item: any) => React.ReactNode | - | Function to render menu item |
+| getKey | (item: any) => string | Required if item is not string or number | Function to return unique key for item |
+
+### SingleSelectRecord
+Extended props: [SingleSelectOne](https://mui.com/material-ui/api/select/)
+
+| Name | Type | Default | Description |
+|:-:|:-:|:-:|:-:|
+| get | any | (required) | First value of useState |
+| set | Dispatch<SetStateAction<any>> | (required) | Second value of useState |
+| label | React.ReactNode | - | Label content |
+| err | string | - | Error message |
+| emptyItem | React.ReactNode | - | Node to display for empty item (allows empty value) |
+| emptyValue | '' / null / undefined / any | - | Value inserted when empty item is selected |
+| items | any[] | (required) | Selectable items |
+| renderMenuItem | (item: any) => React.ReactNode | - | Function to render menu item |
+| getKey | (item: any) => string | Required if item is not string or number | Function to return unique key for item |
 
 ----
 
@@ -289,7 +304,7 @@ Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 | set | Dispatch<SetStateAction<object>> | (required) | Second value of useState |
 | name | string | (required) | Object key name |
 | label | React.ReactNode | - | Label content |
-| errorData | object | - | Error message |
+| err | object | - | Error message |
 | minLength | number | - | Minimum input length |
 | maxLength | number | - | Maximum input length |
 | startAdornment | React.ReactNode | - | Start InputAdornment |
@@ -308,7 +323,7 @@ Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 | set | Dispatch<SetStateAction<object>> | (required) | Second value of useState |
 | name | string | (required) | Object key name |
 | label | React.ReactNode | - | Label content |
-| errorData | object | - | Error message |
+| err | object | - | Error message |
 | minLength | number | - | Minimum input length |
 | maxLength | number | - | Maximum input length |
 | startAdornment | React.ReactNode | - | Start InputAdornment |
@@ -327,7 +342,7 @@ Extended props: [TextFieldProps](https://mui.com/material-ui/api/text-field/)
 | set | Dispatch<SetStateAction<object>> | (required) | Second value of useState |
 | name | string | (required) | Object key name |
 | label | React.ReactNode | - | Label content |
-| errorData | object | - | Error message |
+| err | object | - | Error message |
 | minLength | number | - | Minimum input length |
 | maxLength | number | - | Maximum input length |
 | startAdornment | React.ReactNode | - | Start InputAdornment |
@@ -353,4 +368,36 @@ Extended props: [IconButtonProps](https://mui.com/material-ui/api/icon-button/)
 | name | string | (required) | Object key name |
 | on | React.ReactNode | (required) | Node displayed when true |
 | off | React.ReactNode | (required) | Node displayed when false |
+
+### ObjSelectOne
+Extended props: [ObjSelectOne](https://mui.com/material-ui/api/select/)
+
+| Name | Type | Default | Description |
+|:-:|:-:|:-:|:-:|
+| get | object | (required) | First value of useState |
+| set | Dispatch<SetStateAction<object>> | (required) | Second value of useState |
+| name | string | (required) | Object key name |
+| label | React.ReactNode | - | Label content |
+| err | object | - | Error message |
+| emptyItem | React.ReactNode | - | Node to display for empty item (allows empty value) |
+| emptyValue | '' / null / undefined / any | - | Value inserted when empty item is selected |
+| items | any[] | (required) | Selectable items |
+| renderMenuItem | (item: any) => React.ReactNode | - | Function to render menu item |
+| getKey | (item: any) => string | Required if item is not string or number | Function to return unique key for item |
+
+### ObjSelectRecord
+Extended props: [SingleSelectOne](https://mui.com/material-ui/api/select/)
+
+| Name | Type | Default | Description |
+|:-:|:-:|:-:|:-:|
+| get | object | (required) | First value of useState |
+| set | Dispatch<SetStateAction<object>> | (required) | Second value of useState |
+| name | string | (required) | Object key name |
+| label | React.ReactNode | - | Label content |
+| err | object | - | Error message |
+| emptyItem | React.ReactNode | - | Node to display for empty item (allows empty value) |
+| emptyValue | '' / null / undefined / any | - | Value inserted when empty item is selected |
+| items | any[] | (required) | Selectable items |
+| renderMenuItem | (item: any) => React.ReactNode | - | Function to render menu item |
+| getKey | (item: any) => string | Required if item is not string or number | Function to return unique key for item |
 

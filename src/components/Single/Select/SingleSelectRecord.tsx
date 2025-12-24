@@ -1,31 +1,27 @@
-import {FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectProps} from "@mui/material";
+import {MenuItem, SelectProps} from "@mui/material";
 import {MfsSingleSelectRecordProps} from "../../../types";
 import React, {useContext, useMemo} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 import BaseSingleSelect from "./BaseSingleSelect.tsx";
 
-export type SingleSelectRecordProps<
-    T extends Record<string, unknown>,
-    Value = keyof T | undefined | null
-> = SelectProps & MfsSingleSelectRecordProps<T, Value>;
 
 export const SingleSelectRecord = <
     T extends Record<string, unknown>,
     Value = keyof T | undefined | null
->(customProps: SingleSelectRecordProps<T, Value>) => {
+>(customProps: SelectProps & MfsSingleSelectRecordProps<T, Value>) => {
     const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectRecord;
     const {
         get, set, err, label,
-        items,
-        emptyItem,
-        renderMenuItem,
+        items, renderMenuItem,
+        emptyItem, emptyValue,
         ...props
     } = defaultProps == null
         ? customProps
         : Object.assign({...defaultProps}, customProps);
 
     const onChange: SelectProps['onChange'] = (event) => {
-        set(event.target.value as Value);
+        const value = event.target.value;
+        set((value == "" ? emptyValue : value) as Value);
     }
 
     const MenuItems = useMemo(() => {

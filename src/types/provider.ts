@@ -32,12 +32,11 @@ export type MfsSingleSelectOneProps<Item> =
     MfsSelectOneProps<Item>
     & MfsErrorProps<Item, MfsSingleError>;
 
-export interface MfsSingleSelectRecordProps<
+export type MfsSingleSelectRecordProps<
     Item extends Record<PropertyKey, unknown>,
     Value = keyof Item | undefined | null
-> extends
-    MfsSelectRecordProps<Item>,
-    MfsErrorProps<Value, MfsSingleError> {}
+> = MfsSelectRecordProps<Item>
+    & MfsErrorProps<Value, MfsSingleError>;
 
 
 // Object
@@ -65,10 +64,9 @@ export type MfsObjectSelectOneProps<T extends object, Item> =
     & MfsSelectOneProps<Item>
     & MfsErrorProps<T, MfsObjectError<T, Item>>;
 
-export interface MfsObjectSelectRecordProps<
+export type MfsObjectSelectRecordProps<
     T extends object,
     Item extends Record<PropertyKey, unknown>
-> extends
-    MfsObjectProps<T, Item>,
-    MfsSelectRecordProps<Item>,
-    MfsErrorProps<T, MfsObjectError<T, Item>> {}
+> = MfsObjectProps<T, Item>
+    & MfsSelectRecordProps<Item>
+    & MfsErrorProps<T, MfsObjectError<T, Item>>;

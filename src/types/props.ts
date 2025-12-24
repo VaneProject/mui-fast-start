@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Dispatch, HTMLAttributes, SetStateAction} from "react";
-import {MfsObjectKeys} from "./props.internal.ts";
+import {MfsObjectKeys, MfsSelectEmpty} from "./props.internal.ts";
 
 
 type KeysWithValue<Type extends object, Target> = {
@@ -53,16 +53,14 @@ export interface MfsCheckIconProps {
 export type MfsSelectOneProps<I> = {
     items: I[];
     renderMenuItem?: (item: I, i: number) => React.ReactNode;
-    emptyItem?: React.ReactNode;
-} & ([NonNullable<I>] extends [string | number]
+} & MfsSelectEmpty<I> & ([NonNullable<I>] extends [string | number]
     ? { getKey?: (item: I) => string | number }
     : { getKey: (item: I) => string | number });
 
-export interface MfsSelectRecordProps<Item extends Record<PropertyKey, unknown>> {
+export type MfsSelectRecordProps<Item extends Record<PropertyKey, unknown>> = {
     items: Item;
     renderMenuItem?: (key: keyof Item, value: Item[keyof Item], i: number) => React.ReactNode;
-    emptyItem?: React.ReactNode;
-}
+} & MfsSelectEmpty<Item>;
 
 
 interface BaseProps<Type, Error> {
