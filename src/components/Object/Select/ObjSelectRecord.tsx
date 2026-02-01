@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {FastStartContext} from "../../../styles/FastStartProvider.tsx";
 import useObjToSingle from "../../../hooks/state/useObjToSingle.ts";
 import {SingleSelectRecord} from "../../Single/Select/SingleSelectRecord.tsx";
@@ -9,7 +9,7 @@ import {errorObjectToString} from "../../../utils/object/error.ts";
 
 export const ObjSelectRecord = <
     T extends object,
-    Item extends Record<PropertyKey, unknown>
+    Item extends Record<PropertyKey, React.ReactNode>
 >(customProps: Omit<SelectProps, 'name'> & MfsObjectSelectRecordProps<T, Item>) => {
     const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectRecord;
     const {

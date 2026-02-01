@@ -57,7 +57,7 @@ export type MfsSelectOneProps<I> = {
     ? { getKey?: (item: I) => string | number }
     : { getKey: (item: I) => string | number });
 
-export type MfsSelectRecordProps<Item extends Record<PropertyKey, unknown>> = {
+export type MfsSelectRecordProps<Item extends Record<PropertyKey, React.ReactNode | unknown>> = {
     items: Item;
     renderMenuItem?: (key: keyof Item, value: Item[keyof Item], i: number) => React.ReactNode;
 } & MfsSelectEmpty<Item>;

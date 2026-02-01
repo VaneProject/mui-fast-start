@@ -6,7 +6,7 @@ import BaseSingleSelect from "./BaseSingleSelect.tsx";
 
 
 export const SingleSelectRecord = <
-    T extends Record<string, unknown>,
+    T extends Record<string, React.ReactNode>,
     Value = keyof T | undefined | null
 >(customProps: SelectProps & MfsSingleSelectRecordProps<T, Value>) => {
     const defaultProps = useContext(FastStartContext)?.Single?.MfsSelectRecord;
@@ -32,7 +32,7 @@ export const SingleSelectRecord = <
         } else {
             return Object.entries(items).map(([key, value]) => (
                 <MenuItem key={key} value={key}>
-                    {value?.toString()}
+                    {value}
                 </MenuItem>
             ));
         }

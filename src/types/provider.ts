@@ -10,6 +10,7 @@ import {
     MfsTextProps
 } from './props';
 import {MfsObjectError, MfsSingleError} from "./props.internal.ts";
+import React from "react";
 
 
 // Single
@@ -66,7 +67,7 @@ export type MfsObjectSelectOneProps<T extends object, Item> =
 
 export type MfsObjectSelectRecordProps<
     T extends object,
-    Item extends Record<PropertyKey, unknown>
+    Item extends Record<PropertyKey, React.ReactNode>
 > = MfsObjectProps<T, Item>
     & MfsSelectRecordProps<Item>
     & MfsErrorProps<T, MfsObjectError<T, Item>>;

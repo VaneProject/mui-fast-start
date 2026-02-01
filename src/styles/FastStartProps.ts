@@ -11,6 +11,7 @@ import {
 } from "../types";
 import type {ThemeProviderProps} from "@mui/material";
 import {fastDeepMerge} from "../utils";
+import React from "react";
 
 interface FastStartProps {
     Single: Partial<{
@@ -29,7 +30,7 @@ interface FastStartProps {
         MfsCheckbox: Partial<MfsObjectCheckboxProps<object>>,
         MfsCheckIcon: Partial<MfsObjectCheckIconProps<object>>,
         MfsSelectOne: Partial<MfsObjectSelectOneProps<object, unknown>>,
-        MfsSelectRecord: Partial<MfsObjectSelectRecordProps<object, Record<string, unknown>>>
+        MfsSelectRecord: Partial<MfsObjectSelectRecordProps<object, Record<string, React.ReactNode>>>
     }>
 }
 
