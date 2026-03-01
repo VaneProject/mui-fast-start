@@ -54,7 +54,7 @@ const useSplitNumberProps = (
     );
 
     const onSelect = () => {
-        if (draft == null) setDraft(get.toString());
+        if (draft == null) setDraft(get?.toString());
     };
 
     const onChange = (
@@ -112,18 +112,18 @@ const useSplitNumberProps = (
             }
         }
     };
-    
+
     return fastDeepMerge<TextFieldProps>({
         error: !!err,
         helperText: err,
-        value: (draft == null ? get : draft),
+        value: (draft == null ? get : draft) ?? "",
         onChange,
         onSelect,
         onBlur,
         slotProps: {
             htmlInput: {step, min, max, minLength, maxLength, onKeyDown},
             inputLabel: (draft == null && (!get || isNaN(get))) ? {} : { shrink: true },
-            input: {startAdornment, endAdornment}
+            input: { startAdornment, endAdornment }
         }
     }, (props as TextFieldProps));
 }
