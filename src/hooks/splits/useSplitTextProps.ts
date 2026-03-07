@@ -24,7 +24,7 @@ const useSplitTextProps = (
     return fastDeepMerge<TextFieldProps>({
         error: !!err,
         helperText: err,
-        value: get,
+        value: get ?? "",
         onChange,
         slotProps: {
             htmlInput: {minLength, maxLength},

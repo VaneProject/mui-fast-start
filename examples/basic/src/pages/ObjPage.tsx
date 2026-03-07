@@ -1,4 +1,4 @@
-import {Divider, Grid, InputAdornment, TextField} from "@mui/material";
+import {Button, Divider, Grid, InputAdornment, TextField} from "@mui/material";
 import {ObjCheckbox, ObjCheckIcon, ObjFloat, ObjInteger, ObjSelectOne, ObjSelectRecord, ObjText} from "mui-fast-start";
 import React, { useState } from "react";
 
@@ -51,6 +51,10 @@ const ObjPage = () => {
         item5: list[0],
     });
 
+    const empty = () => {
+        setTemp({});
+    }
+
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTemp({...temp, text: e.target.value});
     }
@@ -66,6 +70,10 @@ const ObjPage = () => {
                 value={temp.text}
                 onChange={handleTextChange}
             />
+
+            <Button onClick={empty}>
+                초기화
+            </Button>
 
             <Grid size={12}>
                 {JSON.stringify(temp)}

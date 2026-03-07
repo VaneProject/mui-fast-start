@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Divider, Grid, InputAdornment} from "@mui/material";
+import {Button, Divider, Grid, InputAdornment} from "@mui/material";
 import {SingleCheckbox, SingleCheckIcon, SingleFloat, SingleInteger, SingleText} from "mui-fast-start";
 import {SingleSelectOne, SingleSelectRecord} from "mui-fast-start";
 
@@ -32,6 +32,13 @@ const SinglePage = () => {
 
     return (
         <Grid container>
+            <Button onClick={() => {
+                setInteger(null);
+                setFloat(null);
+            }}>
+                테스트
+            </Button>
+
             <Grid size={2}>{checked.toString()}</Grid>
             <Grid size={2}>
                 <SingleCheckbox
@@ -51,7 +58,7 @@ const SinglePage = () => {
             <Grid size={2}>{float}</Grid>
             <Grid size={2}>
                 <SingleFloat
-                    label='실수형'
+                    label='실수형' def={null}
                     min={-100} max={100}
                     get={float} set={setFloat}
                 />
@@ -60,7 +67,7 @@ const SinglePage = () => {
             <Grid size={2}>{integer}</Grid>
             <Grid size={2}>
                 <SingleInteger
-                    label='정수형'
+                    label='정수형' def={null}
                     min={-100} max={100}
                     startAdornment={(
                         <InputAdornment position="start">
